@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-whisper;
+  }
+  body {
+    @apply bg-whisper font-body text-plum antialiased;
+    text-rendering: optimizeLegibility;
+    /* pixel grain — a faint 8px checker over the whole page */
+    background-image: repeating-conic-gradient(
+      rgba(47, 36, 64, 0.028) 0% 25%,
+      transparent 0% 50%
+    );
+    background-size: 16px 16px;
+  }
+  ::selection {
+    @apply bg-glow text-whisper;
+  }
+  :focus-visible {
+    outline: 2px solid theme('colors.glow');
+    outline-offset: 3px;
+  }
+  input,
+  select,
+  textarea,
+  button {
+    border-radius: 0; /* sharp corners are the design system — no rounding anywhere */
+  }
+  select {
+    appearance: none;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-eyebrow text-glow;
+  }
+  .mono-label {
+    @apply font-mono text-[10px] uppercase tracking-label text-muted;
+  }
+  .btn-solid {
+    @apply inline-flex items-center gap-3 bg-plum px-7 py-4 font-mono text-xs uppercase tracking-label text-whisper transition-colors duration-200 ease-out hover:bg-glow;
+  }
+  .btn-outline {
+    @apply inline-flex items-center gap-3 border border-plum px-7 py-4 font-mono text-xs uppercase tracking-label text-plum transition-colors duration-200 ease-out hover:border-glow hover:text-glow;
+  }
+  .input-sharp {
+    @apply w-full border border-line bg-petal px-4 py-3 text-sm text-plum placeholder:text-muted/60 focus:border-plum;
+  }
+  /* pixel-dither edge — checker strip used where dark sections meet the page */
+  .dither {
+    height: 16px;
+    background-image: repeating-conic-gradient(
+      theme('colors.plum') 0% 25%,
+      transparent 0% 50%
+    );
+    background-size: 8px 8px;
+  }
+  .dither-glow {
+    background-image: repeating-conic-gradient(
+      theme('colors.glow') 0% 25%,
+      transparent 0% 50%
+    );
+  }
+}
+
+@layer utilities {
+  /* stepped easing for pixel-flavored micro-interactions */
+  .ease-pixel {
+    transition-timing-function: steps(3, end);
+  }
+}
+
+/* custom cursor — a circle ring trailing a glow dot; states toggled from Cursor.tsx */
+.cursor-ring .cursor-dot {
+  border-radius: 50%;
+}
+.cursor-ring.cursor-active .cursor-dot {
+  transform: scale(1.6);
+  border-color: theme('colors.glow');
+  background-color: rgb(216 65 124 / 0.08);
+}
+.cursor-ring.cursor-down .cursor-dot {
+  transform: scale(0.75);
+  border-color: theme('colors.glow');
+}
+.cursor-ring.cursor-active.cursor-down .cursor-dot {
+  transform: scale(1.25);
+}
+
+/* Oswald replaces Anton (single-weight): give display type a default weight */
+.font-display {
+  font-weight: 600;
+}
+
+/* hide native select arrow gap on firefox */
+select::-ms-expand {
+  display: none;
+}
