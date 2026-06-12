@@ -5,6 +5,7 @@ import Lenis from 'lenis'
 
 import Cursor from './components/Cursor'
 import Nav from './components/Nav'
+import WhatsAppFloat from './components/WhatsAppFloat'
 import { GuideLines } from './components/ui'
 import Hero from './sections/Hero'
 import StatsBar from './sections/StatsBar'
@@ -107,6 +108,7 @@ export default function App() {
         <LocateUs />
       </main>
       <Footer />
+      <WhatsAppFloat />
     </>
   )
 }

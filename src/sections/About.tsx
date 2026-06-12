@@ -3,9 +3,11 @@ import { Eyebrow, Section, SquareDot } from '../components/ui'
 export default function About() {
   return (
     <Section id="about">
+      {/* PHOTO PLACEHOLDER: subtle background texture of the processing unit / team at work
+          goes here (absolutely-positioned, low-opacity) once real photos are provided. */}
       <Eyebrow>{'// 01 · ABOUT'}</Eyebrow>
       <div className="mt-10 grid grid-cols-1 gap-12 border-t border-line pt-12 lg:grid-cols-2 lg:gap-20">
-        <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(2.75rem,5.5vw,5rem)]">
+        <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,5.5vw,5rem)]">
           We redefined laundry
           <SquareDot />
           <span className="sr-only">.</span>

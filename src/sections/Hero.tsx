@@ -37,7 +37,9 @@ export default function Hero() {
 
   return (
     <section id="home" ref={root} className="relative z-10">
-      <div className="mx-auto grid max-w-page grid-cols-1 gap-12 px-6 pb-20 pt-32 md:px-10 lg:grid-cols-[auto_1fr_minmax(320px,420px)] lg:gap-16 lg:pt-44 xl:px-16">
+      {/* PHOTO PLACEHOLDER: subtle full-bleed background texture of the shop interior
+          goes here (absolutely-positioned, low-opacity) once real photos are provided. */}
+      <div className="mx-auto grid max-w-page grid-cols-1 gap-12 px-6 pb-10 pt-24 md:px-10 md:pb-14 lg:grid-cols-[auto_1fr_minmax(320px,420px)] lg:gap-16 lg:pt-32 xl:px-16">
         {/* vertical rail */}
         <div className="hidden lg:block">
           <p
@@ -53,7 +55,7 @@ export default function Hero() {
           <p className="hero-fade eyebrow mb-8">
             {'// LAUNDRY STUDIO · THANE · NAVI MUMBAI · MUMBAI'}
           </p>
-          <h1 className="font-display uppercase leading-[0.88] tracking-[-0.005em] text-plum [font-size:clamp(4rem,11.5vw,11rem)]">
+          <h1 className="font-display uppercase leading-[0.88] tracking-[-0.005em] text-plum [font-size:clamp(2.25rem,9.5vw,3.5rem)] md:[font-size:clamp(4rem,11.5vw,11rem)]">
             <span className="block overflow-hidden pb-[0.04em]">
               <span className="hero-line block">The art</span>
             </span>

@@ -12,9 +12,9 @@ const REASONS = [
 export default function Why() {
   return (
     <Section id="why">
-      <Eyebrow>{'// 03 · WHY EUROSPIN'}</Eyebrow>
+      <Eyebrow>{'// 03 · WHY ECOSPIN'}</Eyebrow>
       <div className="mt-10 grid grid-cols-1 gap-14 border-t border-line pt-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
-        <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(2.75rem,4.5vw,4.25rem)]">
+        <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,4.5vw,4.25rem)]">
           Six reasons to <span className="text-glow">trust</span> us with your wardrobe.
         </h2>
         <ul className="grid grid-cols-1 sm:grid-cols-2" data-stagger>

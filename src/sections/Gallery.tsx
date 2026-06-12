@@ -18,6 +18,8 @@ export default function Gallery() {
         className="mt-10 grid auto-rows-[180px] grid-cols-2 gap-px border border-line bg-line md:auto-rows-[220px] md:grid-cols-4"
         data-stagger
       >
+        {/* PHOTO PLACEHOLDER: each tile below swaps its illustration <Plate> for a real
+            shop photo (duotone-treated <img>) once real photos are provided. */}
         {TILES.map((t, i) => (
           <figure key={i} className={`reveal-item group overflow-hidden bg-whisper ${t.span}`}>
             <Plate

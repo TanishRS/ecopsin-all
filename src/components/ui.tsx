@@ -45,7 +45,7 @@ export function Section({
       id={id}
       className={`relative z-10 ${dark ? 'bg-plum text-whisper' : ''} ${className}`}
     >
-      <div className="mx-auto max-w-page px-6 py-24 md:px-10 md:py-32 xl:px-16">{children}</div>
+      <div className="mx-auto max-w-page px-6 py-12 md:px-10 md:py-[5.5rem] xl:px-16">{children}</div>
     </section>
   )
 }

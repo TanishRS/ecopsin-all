@@ -11,7 +11,7 @@
     text-rendering: optimizeLegibility;
     /* pixel grain — a faint 8px checker over the whole page */
     background-image: repeating-conic-gradient(
-      rgba(47, 36, 64, 0.028) 0% 25%,
+      rgba(73, 34, 91, 0.028) 0% 25%,
       transparent 0% 50%
     );
     background-size: 16px 16px;
@@ -48,7 +48,16 @@
     @apply inline-flex items-center gap-3 border border-plum px-7 py-4 font-mono text-xs uppercase tracking-label text-plum transition-colors duration-200 ease-out hover:border-glow hover:text-glow;
   }
   .input-sharp {
-    @apply w-full border border-line bg-petal px-4 py-3 text-sm text-plum placeholder:text-muted/60 focus:border-plum;
+    /* text-base (16px) is deliberate: anything smaller makes iOS Safari zoom on focus */
+    @apply w-full border border-line bg-petal px-4 py-3 text-base text-plum placeholder:text-muted/60 focus:border-plum;
+  }
+  /* appearance:none strips the native dropdown arrow — draw our own chevron */
+  select.input-sharp {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2349225B' stroke-width='2' stroke-linecap='square'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    background-size: 14px;
+    padding-right: 2.5rem;
   }
   /* pixel-dither edge — checker strip used where dark sections meet the page */
   .dither {
@@ -81,7 +90,7 @@
 .cursor-ring.cursor-active .cursor-dot {
   transform: scale(1.6);
   border-color: theme('colors.glow');
-  background-color: rgb(216 65 124 / 0.08);
+  background-color: rgb(110 52 130 / 0.08);
 }
 .cursor-ring.cursor-down .cursor-dot {
   transform: scale(0.75);

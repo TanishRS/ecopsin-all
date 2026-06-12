@@ -4,9 +4,9 @@
  * photos when the client supplies them.
  */
 
-const PLUM = '#2F2440'
-const WHISPER = '#F3EEFA'
-const GLOW = '#D8417C'
+const PLUM = '#49225B'
+const WHISPER = '#F5EBFA'
+const GLOW = '#6E3482'
 
 export function HangerRack({ className = '' }: { className?: string }) {
   return (

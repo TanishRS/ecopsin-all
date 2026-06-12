@@ -23,13 +23,42 @@ function Field({
   )
 }
 
+const WHATSAPP_NUMBER = '918657422155'
+
 export default function BookPickup() {
-  const [submitted, setSubmitted] = useState(false)
+  const [waUrl, setWaUrl] = useState<string | null>(null)
+  const submitted = waUrl !== null
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // TODO: wire to WhatsApp deep-link / n8n webhook — POST the FormData here.
-    setSubmitted(true)
+    const data = new FormData(e.currentTarget)
+    const get = (key: string) => String(data.get(key) ?? '').trim()
+
+    const date = get('date')
+    const prettyDate = date
+      ? new Date(`${date}T00:00:00`).toLocaleDateString('en-IN', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+        })
+      : ''
+
+    const details = [
+      `Name: ${get('name')}`,
+      `Phone: ${get('phone')}`,
+      get('email') && `Email: ${get('email')}`,
+      `City: ${get('city')}`,
+      `Address: ${get('address')}`,
+      `Pickup date: ${prettyDate}`,
+      `Service: ${get('service')}`,
+      get('garments') && `Garments (approx.): ${get('garments')}`,
+      get('notes') && `Notes: ${get('notes')}`,
+    ].filter(Boolean)
+    const message = ['New pickup request — ecospin.in', '', ...details].join('\n')
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+    window.open(url, '_blank', 'noopener')
+    setWaUrl(url)
   }
 
   return (
@@ -37,7 +66,7 @@ export default function BookPickup() {
       <Eyebrow>{'// 07 · BOOK A PICKUP'}</Eyebrow>
       <div className="mt-10 grid grid-cols-1 gap-14 border-t border-line pt-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
         <div>
-          <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(2.75rem,5vw,4.5rem)]">
+          <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,5vw,4.5rem)]">
             Book a pickup.
             <br />
             <em className="italic text-glow">Avail a discount.</em>
@@ -49,14 +78,14 @@ export default function BookPickup() {
           <div className="reveal mt-10 space-y-3 font-mono text-sm">
             <p>
               <span className="mono-label mr-4">PHONE</span>
-              <a href="tel:+919004337979" className="text-plum hover:text-glow">+91 9004337979</a>
+              <a href="tel:+918657422155" className="text-plum hover:text-glow">+91 86574 22155</a>
               <span className="mx-2 text-line">·</span>
-              <a href="tel:+918452808888" className="text-plum hover:text-glow">+91 8452808888</a>
+              <a href="tel:+918657422355" className="text-plum hover:text-glow">+91 86574 22355</a>
             </p>
             <p>
               <span className="mono-label mr-4">EMAIL</span>
-              <a href="mailto:info@eurospin.in" className="text-plum hover:text-glow">
-                info@eurospin.in
+              <a href="mailto:info@ecospin.in" className="text-plum hover:text-glow">
+                info@ecospin.in
               </a>
             </p>
           </div>
@@ -68,10 +97,15 @@ export default function BookPickup() {
               <span className="inline-flex h-14 w-14 items-center justify-center bg-glow text-whisper">
                 <Check size={26} strokeWidth={2.5} aria-hidden="true" />
               </span>
-              <h3 className="mt-8 font-display text-4xl uppercase text-plum">Order received.</h3>
+              <h3 className="mt-8 font-display text-4xl uppercase text-plum">Almost there.</h3>
               <p className="mt-4 font-mono text-xs uppercase tracking-label text-muted">
-                Our team will call within the hour to confirm your slot.
+                We&apos;ve opened WhatsApp with your booking — hit send to confirm.
+                <br />
+                We&apos;ll call within the hour to lock your slot.
               </p>
+              <a href={waUrl ?? undefined} target="_blank" rel="noreferrer" className="btn-outline mt-8">
+                WHATSAPP DIDN&apos;T OPEN?
+              </a>
             </div>
           ) : (
             <form onSubmit={onSubmit} className="grid grid-cols-1 gap-6 sm:grid-cols-2">

@@ -20,7 +20,7 @@ const STORES = [
     n: '03',
     name: 'Kharghar Store',
     address: 'Shop No.19, Green Heritage CHS, Plot No.79/80, Sector 20, Kharghar 410210',
-    phones: ['+91 9004337979'],
+    phones: ['+91 86574 22155', '+91 86574 22355'],
   },
 ]
 
@@ -28,10 +28,12 @@ export default function LocateUs() {
   return (
     <Section id="locations">
       <Eyebrow>{'// 08 · LOCATE US'}</Eyebrow>
-      <h2 className="reveal mt-10 border-t border-line pt-12 font-display uppercase leading-[0.95] text-plum [font-size:clamp(2.75rem,5vw,4.5rem)]">
+      <h2 className="reveal mt-10 border-t border-line pt-12 font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,5vw,4.5rem)]">
         Three doors. <span className="text-glow">One promise.</span>
       </h2>
 
+      {/* PHOTO PLACEHOLDER: each store card below gets a storefront photo strip at the top
+          once real photos are provided. */}
       <div className="mt-14 grid grid-cols-1 gap-px border border-line bg-line lg:grid-cols-3" data-stagger>
         {STORES.map((s) => (
           <article key={s.n} className="reveal-item group bg-whisper p-8 transition-colors duration-300 ease-out hover:bg-petal md:p-10">
@@ -60,7 +62,7 @@ export default function LocateUs() {
 
       {/* mini contact block */}
       <div id="contact" className="mt-24 grid grid-cols-1 gap-12 border-t border-line pt-12 lg:grid-cols-2">
-        <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(2.5rem,4vw,3.75rem)]">
+        <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(1.875rem,4vw,3.75rem)]">
           Get in touch<span className="text-glow">.</span>
         </h2>
         <form

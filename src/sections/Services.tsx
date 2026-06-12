@@ -43,7 +43,7 @@ export default function Services() {
     <Section id="services">
       <Eyebrow>{'// 02 · SERVICES'}</Eyebrow>
       <div className="mt-10 flex flex-col justify-between gap-6 border-t border-line pt-12 md:flex-row md:items-end">
-        <h2 className="reveal max-w-2xl font-display uppercase leading-[0.95] text-plum [font-size:clamp(2.75rem,5.5vw,5rem)]">
+        <h2 className="reveal max-w-2xl font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,5.5vw,5rem)]">
           Four disciplines.
           <br />
           One studio.
@@ -61,7 +61,7 @@ export default function Services() {
               key={s.n}
               className={`reveal-item group relative flex min-h-[300px] flex-col justify-between p-8 transition-colors duration-300 ease-out md:p-12 ${
                 s.dark
-                  ? 'bg-plum text-whisper hover:bg-[#3B2D57]'
+                  ? 'bg-plum text-whisper hover:bg-velvet'
                   : 'bg-whisper text-plum hover:bg-petal'
               } ${i % 2 === 1 ? 'md:border-l md:border-line' : ''} ${
                 i > 0 ? 'border-t border-line md:border-t-0' : ''
