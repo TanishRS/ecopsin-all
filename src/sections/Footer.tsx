@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Facebook, Instagram } from 'lucide-react'
+import TermsModal from '../components/TermsModal'
 import { scrollToHash } from '../lib/scroll'
 
 const MENU = [
@@ -17,6 +19,8 @@ const SERVICES = [
 ]
 
 export default function Footer() {
+  const [termsOpen, setTermsOpen] = useState(false)
+
   const go = (e: React.MouseEvent, href: string) => {
     e.preventDefault()
     scrollToHash(href)
@@ -37,6 +41,12 @@ export default function Footer() {
             kinder planet<span className="text-glow">.</span>
           </h2>
           <div className="max-w-sm">
+            {/* brightness-0 invert renders the purple logo white on the plum footer */}
+            <img
+              src="/ecospin-logo.png"
+              alt="Ecospin Dry Cleaners — Shine Naturally"
+              className="mb-6 w-[220px] brightness-0 invert"
+            />
             <p className="text-sm leading-relaxed text-whisper/70">
               Ecospin is a DLI-USA certified laundry &amp; dry-cleaning studio operating out of
               Thane-West with stores across the Mumbai region.
@@ -75,6 +85,15 @@ export default function Footer() {
                   </a>
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={() => setTermsOpen(true)}
+                  className="text-whisper/80 transition-colors duration-200 hover:text-glow"
+                >
+                  Terms &amp; Conditions
+                </button>
+              </li>
             </ul>
           </nav>
           <div>
@@ -107,6 +126,7 @@ export default function Footer() {
         </div>
       </div>
       </div>
+      {termsOpen && <TermsModal onClose={() => setTermsOpen(false)} />}
     </footer>
   )
 }

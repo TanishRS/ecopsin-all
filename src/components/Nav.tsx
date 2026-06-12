@@ -42,13 +42,12 @@ export default function Nav() {
       }`}
     >
       <div className="mx-auto flex h-[72px] max-w-page items-center justify-between px-6 md:px-10 xl:px-16">
-        <a href="#home" onClick={(e) => go(e, '#home')} className="flex items-baseline gap-3">
-          <span className="font-body text-xl font-bold lowercase tracking-tight text-plum">
-            ecospin
-          </span>
-          <span className="font-mono text-[9px] uppercase tracking-eyebrow text-glow">
-            EST. INDIA
-          </span>
+        <a href="#home" onClick={(e) => go(e, '#home')} className="flex items-center">
+          <img
+            src="/ecospin-wordmark.png"
+            alt="Ecospin Dry Cleaners"
+            className="h-9 w-auto md:h-10"
+          />
         </a>
 
         <nav aria-label="Primary" className="hidden lg:block">
@@ -88,7 +87,12 @@ export default function Nav() {
       {open && (
         <div id="mobile-menu" className="fixed inset-0 z-[110] flex flex-col bg-plum text-whisper lg:hidden">
           <div className="flex h-[72px] items-center justify-between px-6">
-            <span className="font-body text-xl font-bold lowercase text-whisper">ecospin</span>
+            {/* brightness-0 invert renders the purple logo white on the dark overlay */}
+            <img
+              src="/ecospin-wordmark.png"
+              alt="Ecospin Dry Cleaners"
+              className="h-9 w-auto brightness-0 invert"
+            />
             <button
               type="button"
               className="inline-flex h-11 w-11 items-center justify-center border border-whisper/30 text-whisper"
