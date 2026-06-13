@@ -46,7 +46,7 @@ export default function Nav() {
           <img
             src="/ecospin-wordmark.png"
             alt="Ecospin Dry Cleaners"
-            className="h-9 w-auto md:h-10"
+            className="h-9 w-auto md:h-14"
           />
         </a>
 

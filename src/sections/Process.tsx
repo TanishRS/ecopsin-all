@@ -1,7 +1,37 @@
-import { ArrowDown, ArrowRight } from 'lucide-react'
+import { Fragment } from 'react'
+import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  ClipboardCheck,
+  Droplets,
+  Laptop,
+  LayoutGrid,
+  Package,
+  Tag,
+  Truck,
+  WashingMachine,
+  Wind,
+  type LucideIcon,
+} from 'lucide-react'
 import { Eyebrow, Section } from '../components/ui'
 
 type Step = { n: number; label: string }
+
+const ICONS: Record<number, LucideIcon> = {
+  1: Truck,
+  2: ClipboardCheck,
+  3: Laptop,
+  4: Tag,
+  5: LayoutGrid,
+  6: Droplets,
+  7: WashingMachine,
+  8: ClipboardCheck,
+  9: Wind,
+  10: ClipboardCheck,
+  11: Package,
+  12: Truck,
+}
 
 const STEPS: Step[] = [
   { n: 1,  label: 'View · Pickup / Receive' },
@@ -26,14 +56,23 @@ const TRUST = [
   'Delivery on Time',
 ]
 
-const ROWS = [STEPS.slice(0, 4), STEPS.slice(4, 8), STEPS.slice(8, 12)]
+// Boustrophedon path: row 1 LTR, row 2 RTL, row 3 LTR. Cards stay in
+// numeric order (5,6,7,8 in row 2 read left→right), but the arrows between
+// them point LEFT so the flow direction is 8→7→6→5.
+type RowSpec = { steps: Step[]; arrow: 'right' | 'left'; downAfter: 'right' | 'left' | null }
+const DESKTOP_ROWS: RowSpec[] = [
+  { steps: STEPS.slice(0, 4), arrow: 'right', downAfter: 'right' },
+  { steps: STEPS.slice(4, 8), arrow: 'left', downAfter: 'left' },
+  { steps: STEPS.slice(8, 12), arrow: 'right', downAfter: null },
+]
 
 function Card({ step, badge }: { step: Step; badge?: string }) {
   const isQC = step.label.includes('QC')
-  // mobile: compact horizontal pill (number left, label right); lg+: tall station card
+  const Icon = ICONS[step.n]
+  // mobile: compact horizontal pill (icon · number · label); lg+: tall station card
   return (
     <div
-      className={`relative flex w-72 max-w-full items-center gap-4 rounded-2xl border-[1.5px] px-5 py-3.5 shadow-md transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl lg:min-h-[180px] lg:w-48 lg:flex-col lg:justify-start lg:gap-0 lg:px-4 lg:py-6 lg:text-center ${
+      className={`relative flex w-72 max-w-full items-center gap-4 rounded-2xl border-[1.5px] px-5 py-3.5 shadow-md transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl lg:min-h-[210px] lg:w-48 lg:flex-col lg:justify-start lg:gap-0 lg:px-4 lg:py-6 lg:text-center ${
         isQC
           ? 'border-velvet-darkest bg-velvet'
           : 'border-velvet-mid bg-velvet-light'
@@ -44,8 +83,13 @@ function Card({ step, badge }: { step: Step; badge?: string }) {
           {badge}
         </span>
       )}
+      <Icon
+        aria-hidden="true"
+        strokeWidth={1.75}
+        className={`h-6 w-6 shrink-0 lg:h-8 lg:w-8 ${isQC ? 'text-white' : 'text-velvet'}`}
+      />
       <div
-        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full lg:h-11 lg:w-11 ${
+        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full lg:mt-3 lg:h-11 lg:w-11 ${
           isQC ? 'bg-white' : 'bg-velvet'
         }`}
       >
@@ -64,6 +108,10 @@ function Card({ step, badge }: { step: Step; badge?: string }) {
   )
 }
 
+const arrowCls = 'text-velvet'
+const ARROW_SIZE = 26
+const ARROW_STROKE = 1.75
+
 export default function Process() {
   return (
     <Section id="process">
@@ -74,37 +122,63 @@ export default function Process() {
           <br />
           <span className="text-glow">Twelve stations. Cleaner than new.</span>
         </h2>
-        <p className="reveal mono-label mt-4">1ST DAY → 5TH DAY</p>
+        <p className="reveal mono-label mt-4">1ST DAY → DAY 3</p>
       </div>
 
-      {/* ── Desktop: 4 cards per row with inline arrows ── */}
-      <div className="mt-14 hidden lg:flex lg:flex-col lg:items-center lg:gap-0">
-        {ROWS.map((row, ri) => (
-          <div key={ri} className="flex flex-col items-center gap-0">
-            {/* ↓ between rows */}
-            {ri > 0 && (
-              <div className="py-1">
-                <ArrowDown size={24} strokeWidth={3} className="text-velvet" />
+      {/* ── Desktop: boustrophedon path — row 1 LTR, row 2 RTL, row 3 LTR ── */}
+      <div className="mt-14 hidden lg:flex lg:justify-center">
+        <div className="inline-flex flex-col">
+          {DESKTOP_ROWS.map((row, ri) => (
+            <Fragment key={ri}>
+              <div className="flex items-center">
+                {row.steps.map((step, si) => (
+                  <Fragment key={step.n}>
+                    <Card
+                      step={step}
+                      badge={step.n === 1 ? '1st Day' : step.n === 12 ? 'Day 3' : undefined}
+                    />
+                    {si < row.steps.length - 1 && (
+                      <div className="px-2">
+                        {row.arrow === 'right' ? (
+                          <ArrowRight
+                            size={ARROW_SIZE}
+                            strokeWidth={ARROW_STROKE}
+                            className={arrowCls}
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <ArrowLeft
+                            size={ARROW_SIZE}
+                            strokeWidth={ARROW_STROKE}
+                            className={arrowCls}
+                            aria-hidden="true"
+                          />
+                        )}
+                      </div>
+                    )}
+                  </Fragment>
+                ))}
               </div>
-            )}
-            {/* Row of 4 cards + → between them */}
-            <div className="flex items-center gap-0">
-              {row.map((step, si) => (
-                <div key={step.n} className="flex items-center gap-0">
-                  <Card
-                    step={step}
-                    badge={step.n === 1 ? '1st Day' : step.n === 12 ? '5th Day' : undefined}
-                  />
-                  {si < row.length - 1 && (
-                    <div className="px-2.5">
-                      <ArrowRight size={22} strokeWidth={3} className="text-velvet" />
-                    </div>
-                  )}
+              {row.downAfter && (
+                <div className="flex py-2">
+                  {/* 192px box matches card width (w-48); ml-auto/mr-auto pins it under the correct column */}
+                  <div
+                    className={`flex w-48 justify-center ${
+                      row.downAfter === 'right' ? 'ml-auto' : 'mr-auto'
+                    }`}
+                  >
+                    <ArrowDown
+                      size={ARROW_SIZE}
+                      strokeWidth={ARROW_STROKE}
+                      className={arrowCls}
+                      aria-hidden="true"
+                    />
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        ))}
+              )}
+            </Fragment>
+          ))}
+        </div>
       </div>
 
       {/* ── Mobile: single column with ↓ between cards ── */}
@@ -113,15 +187,45 @@ export default function Process() {
           <div key={step.n} className="flex flex-col items-center">
             <Card
               step={step}
-              badge={step.n === 1 ? '1st Day' : step.n === 12 ? '5th Day' : undefined}
+              badge={step.n === 1 ? '1st Day' : step.n === 12 ? 'Day 3' : undefined}
             />
             {i < STEPS.length - 1 && (
               <div className="py-1.5">
-                <ArrowDown size={22} strokeWidth={3} className="text-velvet" />
+                <ArrowDown
+                  size={ARROW_SIZE}
+                  strokeWidth={ARROW_STROKE}
+                  className={arrowCls}
+                  aria-hidden="true"
+                />
               </div>
             )}
           </div>
         ))}
+      </div>
+
+      {/* ── Delivery options ── */}
+      <div className="reveal mt-14 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+        <article className="rounded-2xl border-[1.5px] border-velvet-mid bg-velvet-light p-6 md:p-8">
+          <p className="font-mono text-[10px] uppercase tracking-label text-velvet">
+            {'// STANDARD'}
+          </p>
+          <h3 className="mt-3 font-display text-2xl uppercase text-velvet-darkest md:text-3xl">
+            Standard Delivery
+          </h3>
+          <p className="mt-3 text-base font-semibold text-velvet-darkest">Ready in 3 days</p>
+        </article>
+
+        <article className="rounded-2xl border-[1.5px] border-velvet-darkest bg-velvet p-6 text-white shadow-lg md:p-8">
+          <p className="font-mono text-[10px] uppercase tracking-label text-white/80">
+            {'// PREMIUM'}
+          </p>
+          <h3 className="mt-3 font-display text-2xl uppercase md:text-3xl">
+            Same-Day Delivery
+          </h3>
+          <p className="mt-3 text-sm leading-relaxed text-white/90 md:text-base">
+            Need it today? Same-day service available at 2× standard pricing.
+          </p>
+        </article>
       </div>
 
       {/* ── Trust badges ── */}

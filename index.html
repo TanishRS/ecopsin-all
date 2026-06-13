@@ -105,11 +105,6 @@
       rel="stylesheet"
     />
     <style id="ecospin-loader-css">
-      @property --e-hole {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 0%;
-      }
       #ecospin-loader {
         position: fixed;
         inset: 0;
@@ -119,104 +114,31 @@
         align-items: center;
         justify-content: center;
       }
-      /* wrapper needed so streak spans can use right:100% relative to the word box */
-      #ecospin-word {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-      }
-      #ecospin-e {
-        font-family: 'Oswald', Impact, sans-serif;
-        font-weight: 600;
-        font-size: clamp(2.5rem, 8vw, 7rem);
-        color: #6E3482;
-        line-height: 1;
-        user-select: none;
-        display: inline-flex;
-        align-items: center;
-        position: relative;
-        z-index: 1;
-      }
-      /* stacked 3D extrusion matching the signboard plates */
-      .ecospin-static {
-        text-shadow:
-          1px  4px 0 #5c2a6e,
-          1px  5px 0 #F5EBFA,
-          2px  9px 0 #482255,
-          2px 10px 0 #F5EBFA,
-          3px 14px 0 #371a41;
-      }
-      #ecospin-s {
-        display: inline-block;
-        transform-box: border-box;
-        transform-origin: 50% 50%;
-        will-change: transform;
-        margin: 0 0.05em;
-        color: #6E3482;
-        animation: spin-s 0.9s linear infinite;
-      }
-      @keyframes spin-s {
-        from { transform: rotate(0deg); }
-        to   { transform: rotate(360deg); }
-      }
-      /* speed-line streaks trailing left off the word */
-      .ecospin-streak {
-        position: absolute;
-        right: 100%;
-        height: 2px;
-        background: #6E3482;
+      /* Initial state: scaled-down + invisible. GSAP pops it in once nav-logo
+         dimensions are known (so the fly-target lands accurately). */
+      #ecospin-loader-img {
+        width: min(60vw, 320px);
+        height: auto;
         opacity: 0;
-        animation: streak 1.2s ease-out infinite;
-      }
-      .es1 { width: 44px; top: 20%; animation-delay: 0s;    }
-      .es2 { width: 34px; top: 37%; animation-delay: 0.15s; }
-      .es3 { width: 40px; top: 54%; animation-delay: 0.30s; }
-      .es4 { width: 26px; top: 71%; animation-delay: 0.45s; }
-      @keyframes streak {
-        0%   { transform: translateX(0);     opacity: 0.65; }
-        100% { transform: translateX(-40px); opacity: 0;    }
-      }
-      #ecospin-loader.is-exiting {
-        pointer-events: none;
-        animation: blowout 0.7s cubic-bezier(0.4, 0, 1, 1) forwards;
-        mask-image: radial-gradient(circle at 50% 50%, transparent 0%, transparent var(--e-hole), black calc(var(--e-hole) + 0.5%), black 100%);
-        -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 0%, transparent var(--e-hole), black calc(var(--e-hole) + 0.5%), black 100%);
-      }
-      @keyframes blowout {
-        0%   { --e-hole: 0%; }
-        100% { --e-hole: 160%; }
+        transform: scale(0.6);
+        transform-origin: 50% 50%;
+        will-change: transform, opacity;
+        user-select: none;
+        -webkit-user-drag: none;
       }
     </style>
   </head>
   <body>
     <div id="ecospin-loader">
-      <div id="ecospin-word">
-        <span class="ecospin-streak es1"></span>
-        <span class="ecospin-streak es2"></span>
-        <span class="ecospin-streak es3"></span>
-        <span class="ecospin-streak es4"></span>
-        <span id="ecospin-e"><span class="ecospin-static">eco</span><span id="ecospin-s">s</span><span class="ecospin-static">pin</span></span>
-      </div>
+      <img id="ecospin-loader-img" src="/ecospin-logo.png" alt="Ecospin Dry Cleaners" />
     </div>
     <script>
-      (function () {
-        function triggerBlowout() {
-          var loader = document.getElementById('ecospin-loader');
-          if (!loader) return;
-          loader.classList.add('is-exiting');
-          loader.addEventListener('animationend', function () {
-            loader.remove();
-          }, { once: true });
-          setTimeout(function () { if (loader && loader.parentNode) loader.remove(); }, 1400);
-        }
-        var startedAt = Date.now();
-        function maybeBlowout() {
-          var elapsed = Date.now() - startedAt;
-          var delay = Math.max(0, 1000 - elapsed);
-          setTimeout(triggerBlowout, delay);
-        }
-        window.addEventListener('load', maybeBlowout);
-      })();
+      // Safety net: if React fails to mount and run the loader animation,
+      // wipe the overlay after 6s so the page isn't permanently blocked.
+      setTimeout(function () {
+        var l = document.getElementById('ecospin-loader');
+        if (l) l.remove();
+      }, 6000);
     </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

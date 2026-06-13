@@ -24,7 +24,104 @@ import { prefersReducedMotion, setLenis } from './lib/scroll'
 
 gsap.registerPlugin(ScrollTrigger)
 
+/**
+ * Splash loader: pops the logo in, spins it once, flies it to the nav-bar
+ * logo's exact spot, then fades to reveal the real nav image underneath.
+ * Body scroll is locked while the animation runs.
+ */
+function runLoaderHandoff() {
+  const loader = document.getElementById('ecospin-loader')
+  if (!loader) return
+  const loaderImg = loader.querySelector<HTMLImageElement>('img')
+  const navImg = document.querySelector<HTMLImageElement>('header a[href="#home"] img')
+  const html = document.documentElement
+  const body = document.body
+
+  // Lock scroll while the loader is up
+  const prevHtmlOverflow = html.style.overflow
+  const prevBodyOverflow = body.style.overflow
+  html.style.overflow = 'hidden'
+  body.style.overflow = 'hidden'
+  loader.style.pointerEvents = 'none'
+
+  const cleanup = () => {
+    loader.remove()
+    html.style.overflow = prevHtmlOverflow
+    body.style.overflow = prevBodyOverflow
+  }
+
+  if (!loaderImg || !navImg) {
+    cleanup()
+    return
+  }
+
+  const reduced = prefersReducedMotion()
+  let started = false
+
+  const begin = () => {
+    if (started) return
+    started = true
+
+    const loaderRect = loaderImg.getBoundingClientRect()
+    const navRect = navImg.getBoundingClientRect()
+
+    // Degenerate cases — just fade out so we don't divide by zero or fly nowhere useful
+    if (!loaderRect.height || !navRect.width || !navRect.height) {
+      gsap.to(loader, { autoAlpha: 0, duration: 0.4, onComplete: cleanup })
+      return
+    }
+
+    if (reduced) {
+      gsap.to(loader, { autoAlpha: 0, duration: 0.35, onComplete: cleanup })
+      return
+    }
+
+    // Match the nav logo's rendered height so ECOSPIN reads at the same scale on landing
+    const targetScale = navRect.height / loaderRect.height
+    const dx = navRect.left + navRect.width / 2 - (loaderRect.left + loaderRect.width / 2)
+    const dy = navRect.top + navRect.height / 2 - (loaderRect.top + loaderRect.height / 2)
+
+    const tl = gsap.timeline({ onComplete: cleanup })
+    tl
+      // 1) POP IN — scale 0.6 → 1.3, fade in, bouncy
+      .to(loaderImg, { scale: 1.3, opacity: 1, duration: 0.5, ease: 'back.out(2)' })
+      // 2) SPIN once + SETTLE — one full 360° rotation while scaling back to 1
+      .to(loaderImg, { rotation: 360, scale: 1, duration: 0.7, ease: 'power2.inOut' })
+      // 3) FLY TO NAVBAR — translate + shrink to nav-logo size; backdrop fades in parallel
+      .to(
+        loaderImg,
+        { x: dx, y: dy, scale: targetScale, duration: 0.6, ease: 'power3.inOut' },
+        '+=0.05',
+      )
+      .to(
+        loader,
+        { backgroundColor: 'rgba(245, 235, 250, 0)', duration: 0.5, ease: 'power2.out' },
+        '<',
+      )
+      // 4) HANDOFF — fade loader image to reveal the real nav logo underneath
+      .to(loaderImg, { opacity: 0, duration: 0.18, ease: 'power1.out' })
+  }
+
+  // Wait for both images to be measurable before starting (so we land accurately)
+  const ready = (img: HTMLImageElement) => img.complete && img.naturalWidth > 0
+  const waitFor = (img: HTMLImageElement) =>
+    ready(img)
+      ? Promise.resolve()
+      : new Promise<void>((res) => {
+          img.addEventListener('load', () => res(), { once: true })
+          img.addEventListener('error', () => res(), { once: true })
+        })
+
+  Promise.all([waitFor(loaderImg), waitFor(navImg)]).then(begin)
+  // Safety: if either image stalls, kick off anyway after 1.5s
+  setTimeout(begin, 1500)
+}
+
 export default function App() {
+  useEffect(() => {
+    runLoaderHandoff()
+  }, [])
+
   useEffect(() => {
     const reduced = prefersReducedMotion()
 

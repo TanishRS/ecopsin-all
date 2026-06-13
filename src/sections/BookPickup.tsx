@@ -45,7 +45,7 @@ export default function BookPickup() {
 
     const payload = {
       customer_name: get('name'),
-      phone:         get('phone'),
+      phone:         get('phone').replace(/^\+/, ''),
       email:         get('email'),
       city:          get('city'),
       address:       get('address'),
