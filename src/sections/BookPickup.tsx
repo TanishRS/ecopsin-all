@@ -29,7 +29,7 @@ export default function BookPickup() {
   const [waUrl, setWaUrl] = useState<string | null>(null)
   const submitted = waUrl !== null
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const data = new FormData(e.currentTarget)
     const get = (key: string) => String(data.get(key) ?? '').trim()
@@ -42,6 +42,30 @@ export default function BookPickup() {
           year: 'numeric',
         })
       : ''
+
+    const payload = {
+      customer_name: get('name'),
+      phone:         get('phone'),
+      email:         get('email'),
+      city:          get('city'),
+      address:       get('address'),
+      item:          get('garments'),
+      service:       get('service'),
+      pickup_date:   date,
+      notes:         get('notes'),
+      status:        'confirmed',
+      timestamp:     new Date().toISOString(),
+    }
+
+    try {
+      await fetch('https://n8n-service-wvij.onrender.com/webhook/ecospin-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+    } catch {
+      // webhook failure must not block the wa.me redirect
+    }
 
     const details = [
       `Name: ${get('name')}`,
