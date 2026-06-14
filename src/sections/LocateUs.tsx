@@ -1,5 +1,9 @@
+import { useState } from 'react'
 import { ArrowRight, MapPin, Phone } from 'lucide-react'
 import { Eyebrow, Section } from '../components/ui'
+
+const WHATSAPP_NUMBER = '918657422155'
+const WEBHOOK_URL = 'https://n8n-service-wvij.onrender.com/webhook/ecospin-order'
 
 const STORES = [
   {
@@ -25,6 +29,44 @@ const STORES = [
 ]
 
 export default function LocateUs() {
+  const [waUrl, setWaUrl] = useState<string | null>(null)
+
+  const onContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const data = new FormData(e.currentTarget)
+    const get = (key: string) => String(data.get(key) ?? '').trim()
+
+    const payload = {
+      customer_name: get('name'),
+      email:         get('email'),
+      phone:         get('phone').replace(/^\+/, ''),
+      type:          'inquiry',
+      status:        'new',
+      timestamp:     new Date().toISOString(),
+    }
+
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+    } catch {
+      // webhook failure must not block the wa.me redirect
+    }
+
+    const details = [
+      `Name: ${get('name')}`,
+      `Phone: ${get('phone')}`,
+      `Email: ${get('email')}`,
+    ].filter(Boolean)
+    const message = ['New inquiry — ecospin.in', '', ...details].join('\n')
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+    window.open(url, '_blank', 'noopener')
+    setWaUrl(url)
+  }
+
   return (
     <Section id="locations">
       <Eyebrow>{'// 08 · LOCATE US'}</Eyebrow>
@@ -67,28 +109,37 @@ export default function LocateUs() {
         </h2>
         <form
           className="reveal grid grid-cols-1 gap-6 sm:grid-cols-3"
-          onSubmit={(e) => {
-            e.preventDefault()
-            // TODO: wire to the same webhook as the pickup form.
-            const btn = e.currentTarget.querySelector('button')
-            if (btn) btn.textContent = 'SENT ✓'
-          }}
+          onSubmit={onContactSubmit}
         >
           <div>
             <label htmlFor="ct-name" className="mono-label mb-2 block text-plum">NAME</label>
-            <input id="ct-name" type="text" required autoComplete="name" className="input-sharp" />
+            <input id="ct-name" name="name" type="text" required autoComplete="name" className="input-sharp" />
           </div>
           <div>
             <label htmlFor="ct-email" className="mono-label mb-2 block text-plum">EMAIL</label>
-            <input id="ct-email" type="email" required autoComplete="email" className="input-sharp" />
+            <input id="ct-email" name="email" type="email" required autoComplete="email" className="input-sharp" />
           </div>
           <div>
             <label htmlFor="ct-phone" className="mono-label mb-2 block text-plum">PHONE</label>
-            <input id="ct-phone" type="tel" required autoComplete="tel" className="input-sharp" />
+            <input id="ct-phone" name="phone" type="tel" required autoComplete="tel" className="input-sharp" />
           </div>
           <button type="submit" className="btn-solid justify-center sm:col-span-3">
-            SEND <ArrowRight size={13} strokeWidth={2.5} aria-hidden="true" />
+            {waUrl ? 'SENT ✓' : 'SEND'}
+            {!waUrl && <ArrowRight size={13} strokeWidth={2.5} aria-hidden="true" />}
           </button>
+          {waUrl && (
+            <p className="font-mono text-[11px] uppercase tracking-label text-muted sm:col-span-3">
+              We&apos;ve opened WhatsApp with your message — hit send to confirm.{' '}
+              <a
+                href={waUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-glow underline-offset-4 hover:underline"
+              >
+                Didn&apos;t open?
+              </a>
+            </p>
+          )}
         </form>
       </div>
     </Section>

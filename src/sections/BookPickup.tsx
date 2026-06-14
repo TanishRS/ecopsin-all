@@ -1,6 +1,21 @@
 import { useState } from 'react'
-import { ArrowRight, Check } from 'lucide-react'
+import {
+  ArrowRight,
+  Banknote,
+  Check,
+  Clock,
+  ShieldCheck,
+  Truck,
+  type LucideIcon,
+} from 'lucide-react'
 import { Eyebrow, Section } from '../components/ui'
+
+const TRUST_BADGES: Array<{ icon: LucideIcon; label: string }> = [
+  { icon: Banknote,    label: 'Cash / UPI / Card accepted' },
+  { icon: Truck,       label: 'Free pickup & delivery' },
+  { icon: ShieldCheck, label: 'DLI-USA certified' },
+  { icon: Clock,       label: 'Same-day available' },
+]
 
 function Field({
   label,
@@ -88,6 +103,17 @@ export default function BookPickup() {
   return (
     <Section id="pickup">
       <Eyebrow>{'// 07 · BOOK A PICKUP'}</Eyebrow>
+
+      {/* Trust strip — last reassurance before the form */}
+      <ul className="reveal mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border border-velvet-mid bg-velvet-light px-5 py-3 md:gap-x-10">
+        {TRUST_BADGES.map(({ icon: Icon, label }) => (
+          <li key={label} className="flex items-center gap-2 text-velvet-darkest">
+            <Icon size={16} strokeWidth={1.75} aria-hidden="true" className="shrink-0 text-velvet" />
+            <span className="text-[13px] font-semibold leading-none">{label}</span>
+          </li>
+        ))}
+      </ul>
+
       <div className="mt-10 grid grid-cols-1 gap-14 border-t border-line pt-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
         <div>
           <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,5vw,4.5rem)]">

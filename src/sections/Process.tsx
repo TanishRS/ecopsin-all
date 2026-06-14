@@ -72,7 +72,7 @@ function Card({ step, badge }: { step: Step; badge?: string }) {
   // mobile: compact horizontal pill (icon · number · label); lg+: tall station card
   return (
     <div
-      className={`relative flex w-72 max-w-full items-center gap-4 rounded-2xl border-[1.5px] px-5 py-3.5 shadow-md transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl lg:min-h-[210px] lg:w-48 lg:flex-col lg:justify-start lg:gap-0 lg:px-4 lg:py-6 lg:text-center ${
+      className={`relative flex w-72 max-w-full items-center gap-4 border-[1.5px] px-5 py-3.5 shadow-md transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl lg:min-h-[210px] lg:w-48 lg:flex-col lg:justify-start lg:gap-0 lg:px-4 lg:py-6 lg:text-center ${
         isQC
           ? 'border-velvet-darkest bg-velvet'
           : 'border-velvet-mid bg-velvet-light'
@@ -205,7 +205,7 @@ export default function Process() {
 
       {/* ── Delivery options ── */}
       <div className="reveal mt-14 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
-        <article className="rounded-2xl border-[1.5px] border-velvet-mid bg-velvet-light p-6 md:p-8">
+        <article className="border-[1.5px] border-velvet-mid bg-velvet-light p-6 md:p-8">
           <p className="font-mono text-[10px] uppercase tracking-label text-velvet">
             {'// STANDARD'}
           </p>
@@ -215,7 +215,7 @@ export default function Process() {
           <p className="mt-3 text-base font-semibold text-velvet-darkest">Ready in 3 days</p>
         </article>
 
-        <article className="rounded-2xl border-[1.5px] border-velvet-darkest bg-velvet p-6 text-white shadow-lg md:p-8">
+        <article className="border-[1.5px] border-velvet-darkest bg-velvet p-6 text-white shadow-lg md:p-8">
           <p className="font-mono text-[10px] uppercase tracking-label text-white/80">
             {'// PREMIUM'}
           </p>
