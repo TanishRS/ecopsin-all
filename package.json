@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:admin": "vite build --config vite.admin.config.ts",
+    "build:all": "npm run build && npm run build:admin",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview"
   },
