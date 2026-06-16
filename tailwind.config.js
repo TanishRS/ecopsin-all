@@ -23,6 +23,8 @@ export default {
         display: ['Oswald', 'Impact', 'sans-serif'],
         body: ['"Hanken Grotesk"', 'system-ui', 'sans-serif'],
         mono: ['"Space Mono"', 'ui-monospace', 'monospace'],
+        serif: ['"Fraunces"', '"Times New Roman"', 'serif'],
+        hand: ['"Caveat"', 'cursive'],
       },
       letterSpacing: {
         eyebrow: '0.18em',

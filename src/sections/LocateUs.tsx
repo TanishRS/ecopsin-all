@@ -69,7 +69,7 @@ export default function LocateUs() {
 
   return (
     <Section id="locations">
-      <Eyebrow>{'// 08 · LOCATE US'}</Eyebrow>
+      <Eyebrow>Locate us · 08</Eyebrow>
       <h2 className="reveal mt-10 border-t border-line pt-12 font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,5vw,4.5rem)]">
         Three doors. <span className="text-glow">One promise.</span>
       </h2>

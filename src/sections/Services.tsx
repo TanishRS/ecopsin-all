@@ -1,6 +1,8 @@
 import { Droplets, Shirt, Sparkles, Wind } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { Eyebrow, Section } from '../components/ui'
+import { SparkleBurst } from '../components/Doodles'
+import Steam from '../components/Steam'
 
 type Service = {
   n: string
@@ -41,13 +43,16 @@ const SERVICES: Service[] = [
 export default function Services() {
   return (
     <Section id="services">
-      <Eyebrow>{'// 02 · SERVICES'}</Eyebrow>
+      <Eyebrow>Services · 02</Eyebrow>
       <div className="mt-10 flex flex-col justify-between gap-6 border-t border-line pt-12 md:flex-row md:items-end">
-        <h2 className="reveal max-w-2xl font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,5.5vw,5rem)]">
-          Four disciplines.
-          <br />
-          One studio.
-        </h2>
+        <div className="flex items-start gap-3">
+          <h2 className="reveal max-w-2xl font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,5.5vw,5rem)]">
+            Four disciplines.
+            <br />
+            <span className="serif-it text-glow">one</span> studio.
+          </h2>
+          <SparkleBurst className="reveal mt-3 hidden h-10 w-10 shrink-0 text-glow md:block" />
+        </div>
         <p className="reveal mono-label max-w-[220px] md:pb-2 md:text-right">
           Four protocols. No corners cut.
         </p>
@@ -85,7 +90,12 @@ export default function Services() {
                 />
               </div>
               <div>
-                <h3 className="font-display text-3xl uppercase md:text-4xl">{s.title}</h3>
+                <h3 className="flex items-center gap-3 font-display text-3xl uppercase md:text-4xl">
+                  {s.title}
+                  {s.title === 'Steam Ironing' && (
+                    <Steam size={26} className="opacity-80" />
+                  )}
+                </h3>
                 <p
                   className={`mt-4 max-w-sm text-sm leading-relaxed ${
                     s.dark ? 'text-whisper/70' : 'text-muted'

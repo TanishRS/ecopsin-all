@@ -6,6 +6,7 @@ import Lenis from 'lenis'
 import Cursor from './components/Cursor'
 import Nav from './components/Nav'
 import WhatsAppFloat from './components/WhatsAppFloat'
+import ScrollHanger from './components/ScrollHanger'
 import { GuideLines } from './components/ui'
 import Hero from './sections/Hero'
 import StatsBar from './sections/StatsBar'
@@ -189,6 +190,7 @@ export default function App() {
     <>
       <Cursor />
       <GuideLines />
+      <ScrollHanger />
       <Nav />
       <main>
         <Hero />

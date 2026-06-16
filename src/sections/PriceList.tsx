@@ -38,7 +38,7 @@ const CATEGORIES: ReadonlyArray<Cat> = [
 export default function PriceList() {
   return (
     <Section id="prices">
-      <Eyebrow>{'// 05 · PRICE LIST'}</Eyebrow>
+      <Eyebrow>Price list · 05</Eyebrow>
       <div className="mt-10 flex flex-col justify-between gap-6 border-t border-line pt-12 md:flex-row md:items-end">
         <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,5vw,4.5rem)]">
           The rate card.

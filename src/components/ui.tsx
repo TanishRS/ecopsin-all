@@ -1,8 +1,21 @@
 import type { ReactNode } from 'react'
 
-/** Mono orange section marker, e.g. "// 01 · ABOUT" */
-export function Eyebrow({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <p className={`eyebrow reveal ${className}`}>{children}</p>
+/**
+ * Editorial section tag, e.g. "About · 01". The leading 10px rule is drawn
+ * by the .section-tag pseudo-element. Pass `legacy` to render the older
+ * `// 01 · ABOUT` mono marker instead.
+ */
+export function Eyebrow({
+  children,
+  className = '',
+  legacy = false,
+}: {
+  children: ReactNode
+  className?: string
+  legacy?: boolean
+}) {
+  if (legacy) return <p className={`eyebrow reveal ${className}`}>{children}</p>
+  return <p className={`section-tag reveal ${className}`}>{children}</p>
 }
 
 /** The brand's recurring punctuation — a solid orange square instead of a period. */

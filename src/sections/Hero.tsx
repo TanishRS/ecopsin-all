@@ -3,6 +3,8 @@ import gsap from 'gsap'
 import { ArrowRight } from 'lucide-react'
 import { HangerRack } from '../components/Placeholders'
 import { SquareDot } from '../components/ui'
+import { ArrowDoodle, SparkleBurst } from '../components/Doodles'
+import Steam from '../components/Steam'
 import { prefersReducedMotion, scrollToHash } from '../lib/scroll'
 
 export default function Hero() {
@@ -52,39 +54,61 @@ export default function Hero() {
 
         {/* headline column */}
         <div>
-          <p className="hero-fade eyebrow mb-8">
-            {'// LAUNDRY STUDIO · THANE · NAVI MUMBAI · MUMBAI'}
-          </p>
-          <h1 className="font-display uppercase leading-[0.88] tracking-[-0.005em] text-plum [font-size:clamp(2.25rem,9.5vw,3.5rem)] md:[font-size:clamp(4rem,11.5vw,11rem)]">
+          <div className="hero-fade mb-8 flex flex-wrap items-center gap-3">
+            <span className="section-tag">LAUNDRY STUDIO · THANE · NAVI MUMBAI · MUMBAI</span>
+            <span className="hand text-2xl text-glow">— since 2008</span>
+          </div>
+          <h1 className="relative font-display uppercase leading-[0.88] tracking-[-0.005em] text-plum [font-size:clamp(2.25rem,9.5vw,3.5rem)] md:[font-size:clamp(4rem,11.5vw,11rem)]">
             <span className="block overflow-hidden pb-[0.04em]">
               <span className="hero-line block">The art</span>
             </span>
             <span className="block overflow-hidden pb-[0.06em]">
               <span className="hero-line block">
-                <em className="italic">of</em> <span className="text-glow">clean</span>
+                <span className="serif-it text-plum/80">of</span>{' '}
+                <span className="serif-it text-glow">clean</span>
                 <SquareDot className="ml-[0.05em]" />
+                <Steam size={36} className="ml-3 hidden align-middle md:inline-block" />
               </span>
             </span>
             <span className="sr-only">.</span>
           </h1>
 
           <p className="hero-fade mt-10 max-w-md text-[15px] leading-relaxed text-muted">
-            DLI-USA certified laundry &amp; dry-cleaning. European chemistry. American machines.
-            Careful hands.
+            DLI-USA certified. German solvents. American machines.{' '}
+            <span className="serif-it text-plum">No tumble shortcuts.</span> Hand-finished, hanger-pressed,
+            tracked from pickup to door.
           </p>
 
-          <div className="hero-fade mt-10 flex flex-wrap gap-4">
+          <div className="hero-fade mt-10 flex flex-wrap items-center gap-4">
             <a href="#pickup" onClick={(e) => go(e, '#pickup')} className="btn-solid">
               BOOK A PICKUP <ArrowRight size={13} strokeWidth={2.5} aria-hidden="true" />
             </a>
             <a href="#services" onClick={(e) => go(e, '#services')} className="btn-outline">
               SEE SERVICES
             </a>
+            <span className="hidden items-end gap-2 sm:inline-flex">
+              <ArrowDoodle className="h-10 w-16 -rotate-6 text-glow opacity-70" />
+              <span className="hand -ml-2 mt-2 text-2xl text-glow">reply in &lt;15 min</span>
+            </span>
+          </div>
+
+          <div className="hero-fade mt-10 flex items-center gap-4 text-sm text-muted">
+            <SparkleBurst className="h-9 w-9 text-glow" />
+            <div>
+              <div className="font-display text-2xl uppercase text-plum">
+                4.8 <span className="text-glow">★</span>
+                <span className="mx-2 text-line">·</span> 1,200+ wardrobes
+              </div>
+              <div className="mono-label mt-1.5">Google · Justdial · word of mouth</div>
+            </div>
           </div>
         </div>
 
         {/* portrait image */}
-        <div className="hero-img">
+        <div className="hero-img relative">
+          <span className="stamp wiggle absolute -left-3 -top-3 z-10 -rotate-6">
+            ✦ free pickup
+          </span>
           <div className="border border-line bg-petal">
             <HangerRack className="block aspect-[3/4] w-full" />
           </div>

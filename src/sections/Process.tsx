@@ -115,12 +115,12 @@ const ARROW_STROKE = 1.75
 export default function Process() {
   return (
     <Section id="process">
-      <Eyebrow>{'// 04 · THE PROCESS · 12 STEPS'}</Eyebrow>
+      <Eyebrow>The Process · 04 · 12 Steps</Eyebrow>
       <div className="mt-10 border-t border-line pt-12">
         <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(1.875rem,5vw,4.5rem)]">
-          The process.
+          Twelve stations.
           <br />
-          <span className="text-glow">Twelve stations. Cleaner than new.</span>
+          <span className="serif-it text-glow">cleaner</span> than new.
         </h2>
         <p className="reveal mono-label mt-4">1ST DAY → DAY 3</p>
       </div>
@@ -234,6 +234,9 @@ export default function Process() {
           {TRUST.join(' · ')}
         </p>
       </div>
+
+      {/* ── Garment-tag stripe divider — full-bleed under the section ── */}
+      <div className="divider-tape mt-14 opacity-90" aria-hidden="true" />
     </Section>
   )
 }

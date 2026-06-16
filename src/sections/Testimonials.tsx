@@ -45,7 +45,7 @@ export default function Testimonials() {
     <Section id="testimonials">
       {/* PHOTO PLACEHOLDER: faint background texture of pressed fabric / shop counter
           goes here (absolutely-positioned, low-opacity) once real photos are provided. */}
-      <Eyebrow>{'// 06 · TESTIMONIALS'}</Eyebrow>
+      <Eyebrow>Testimonials · 06</Eyebrow>
       <div className="reveal mt-10 border-t border-line pt-12">
         {/* mobile: quote full-width, arrows centered below; md+: arrows flank the quote */}
         <div className="flex flex-wrap items-center justify-center gap-5 md:flex-nowrap md:gap-10">

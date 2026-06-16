@@ -102,7 +102,7 @@ export default function BookPickup() {
 
   return (
     <Section id="pickup">
-      <Eyebrow>{'// 07 · BOOK A PICKUP'}</Eyebrow>
+      <Eyebrow>Book a pickup · 07</Eyebrow>
 
       {/* Trust strip — last reassurance before the form */}
       <ul className="reveal mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border border-velvet-mid bg-velvet-light px-5 py-3 md:gap-x-10">
@@ -119,12 +119,15 @@ export default function BookPickup() {
           <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,5vw,4.5rem)]">
             Book a pickup.
             <br />
-            <em className="italic text-glow">Avail a discount.</em>
+            <span className="serif-it text-glow">save</span> on your first wash.
           </h2>
           <p className="reveal mt-8 max-w-md text-[15px] leading-relaxed text-muted">
-            Free pickup and delivery across Thane, Navi Mumbai and Mumbai. We confirm your slot
-            within an hour.
+            Free pickup and delivery across Thane, Navi Mumbai and Mumbai.{' '}
+            <span className="serif-it text-plum">We reply on WhatsApp in &lt;15 min.</span>
           </p>
+          <div className="reveal mt-4">
+            <span className="hand text-2xl text-glow">first wash on us, often →</span>
+          </div>
           <div className="reveal mt-10 space-y-3 font-mono text-sm">
             <p>
               <span className="mono-label mr-4">PHONE</span>

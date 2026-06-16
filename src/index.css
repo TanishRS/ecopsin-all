@@ -5,6 +5,12 @@
 @layer base {
   html {
     @apply bg-whisper;
+    /* hide native scrollbar — ScrollHanger renders its own indicator */
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
   body {
     @apply bg-whisper font-body text-plum antialiased;
@@ -38,8 +44,59 @@
   .eyebrow {
     @apply font-mono text-[11px] uppercase tracking-eyebrow text-glow;
   }
+  /* Editorial section tag — "About · 01" with a leading 10px rule */
+  .section-tag {
+    @apply inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-eyebrow text-glow;
+  }
+  .section-tag::before {
+    content: '';
+    @apply h-[1px] w-10 bg-plum;
+  }
   .mono-label {
     @apply font-mono text-[10px] uppercase tracking-label text-muted;
+  }
+  /* Fraunces italic accent — for the one highlight word per headline */
+  .serif-it {
+    @apply italic normal-case;
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-weight: 400;
+    font-feature-settings: 'ss01' on;
+    letter-spacing: -0.01em;
+  }
+  /* Caveat hand-script — tiny personality asides */
+  .hand {
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    line-height: 1;
+  }
+  /* Slightly rotated paper-textured stamp — sharp corners, brand-aligned */
+  .stamp {
+    @apply inline-flex items-center gap-2 border-[1.5px] border-plum bg-petal px-3 py-1 font-mono text-[10px] uppercase tracking-label text-plum;
+    background-image:
+      repeating-linear-gradient(115deg, transparent 0 2px, rgba(73, 34, 91, 0.06) 2px 4px);
+  }
+  /* Underline scribble — a wonky velvet stroke under the accent word */
+  .underline-scribble {
+    position: relative;
+    display: inline-block;
+  }
+  .underline-scribble::after {
+    content: '';
+    position: absolute;
+    left: -4px;
+    right: -4px;
+    bottom: -6px;
+    height: 10px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 10' preserveAspectRatio='none'><path d='M2 6 Q 30 1 60 5 T 120 5 T 180 5 T 218 6' fill='none' stroke='%236E3482' stroke-width='3' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  /* Garment-tag stripe — diagonal velvet/glow ticker */
+  .divider-tape {
+    height: 14px;
+    background-image: repeating-linear-gradient(45deg, #6E3482 0 14px, #49225B 14px 28px);
+    background-size: 200px 14px;
+    animation: tape-scroll 18s linear infinite;
   }
   .btn-solid {
     @apply inline-flex items-center gap-3 bg-plum px-7 py-4 font-mono text-xs uppercase tracking-label text-whisper transition-colors duration-200 ease-out hover:bg-glow;
@@ -103,6 +160,58 @@
 /* Oswald replaces Anton (single-weight): give display type a default weight */
 .font-display {
   font-weight: 600;
+}
+
+/* Wiggle — for slightly rotated stamps */
+.wiggle {
+  animation: wiggle 5s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-2.5deg); }
+  50%      { transform: rotate(2.5deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wiggle { animation: none; }
+}
+
+/* Garment-tag tape — slow horizontal drift */
+@keyframes tape-scroll {
+  to { background-position: 400px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .divider-tape { animation: none !important; }
+}
+
+/* Steam tendrils — rising wisps from the studio motif */
+.steam {
+  display: inline-block;
+  position: relative;
+  width: 28px;
+  height: 36px;
+  vertical-align: middle;
+}
+.steam .wisp {
+  position: absolute;
+  bottom: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to top, rgba(165, 106, 189, 0.55), rgba(165, 106, 189, 0));
+  border-radius: 999px;
+  filter: blur(0.6px);
+  transform-origin: bottom center;
+  animation: steam-rise 2.6s ease-in-out infinite;
+}
+.steam .w1 { left: 4px;  animation-delay: 0s; }
+.steam .w2 { left: 12px; animation-delay: 0.6s; height: 88%; opacity: 0.85; }
+.steam .w3 { left: 20px; animation-delay: 1.2s; height: 76%; opacity: 0.7; }
+@keyframes steam-rise {
+  0%   { transform: translateY(8px) scaleY(0.6) rotate(-2deg); opacity: 0; }
+  35%  { opacity: 0.9; }
+  100% { transform: translateY(-10px) scaleY(1.05) rotate(2deg); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .steam .wisp { animation: none; opacity: 0.55; }
 }
 
 /* hide native select arrow gap on firefox */
