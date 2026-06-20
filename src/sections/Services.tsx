@@ -1,4 +1,4 @@
-import { Droplets, Shirt, Sparkles, Wind } from 'lucide-react'
+import { Droplets, Footprints, PawPrint, Shirt, Sparkles, Wind } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { Eyebrow, Section } from '../components/ui'
 import { SparkleBurst } from '../components/Doodles'
@@ -29,14 +29,25 @@ const SERVICES: Service[] = [
     n: '03',
     title: 'Steam Ironing',
     icon: Wind,
-    dark: true,
     body: 'Pure steam through every fiber. No marks — just a royal finish.',
   },
   {
     n: '04',
-    title: 'Stain Removal',
+    title: 'Pre-Wash',
     icon: Sparkles,
-    body: 'Wine, ink, oil, curry. Chemistry beats the stain, never the fabric.',
+    body: 'Targeted treatment before the wash — chemistry beats the stain, never the fabric.',
+  },
+  {
+    n: '05',
+    title: 'Shoe Cleaning',
+    icon: Footprints,
+    body: 'Sneakers, leather, suede. Deep-cleaned, deodorised, restored.',
+  },
+  {
+    n: '06',
+    title: 'Soft Toys',
+    icon: PawPrint,
+    body: 'Plushies and stuffed friends — gently washed, fluffed, sanitised.',
   },
 ]
 
@@ -47,14 +58,14 @@ export default function Services() {
       <div className="mt-10 flex flex-col justify-between gap-6 border-t border-line pt-12 md:flex-row md:items-end">
         <div className="flex items-start gap-3">
           <h2 className="reveal max-w-2xl font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,5.5vw,5rem)]">
-            Four disciplines.
+            Six disciplines.
             <br />
             <span className="serif-it text-glow">one</span> studio.
           </h2>
           <SparkleBurst className="reveal mt-3 hidden h-10 w-10 shrink-0 text-glow md:block" />
         </div>
         <p className="reveal mono-label max-w-[220px] md:pb-2 md:text-right">
-          Four protocols. No corners cut.
+          Six protocols. No corners cut.
         </p>
       </div>
 

@@ -14,7 +14,9 @@ const SERVICES = [
   'Dry Cleaning',
   'Wet Cleaning',
   'Steam Ironing',
-  'Stain Removal',
+  'Pre-Wash',
+  'Shoe Cleaning',
+  'Soft Toys',
   'Free Pickup & Delivery',
 ]
 

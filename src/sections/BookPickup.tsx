@@ -191,7 +191,9 @@ export default function BookPickup() {
                   <option>Dry Cleaning</option>
                   <option>Wet Cleaning</option>
                   <option>Steam Ironing</option>
-                  <option>Stain Removal</option>
+                  <option>Pre-Wash</option>
+                  <option>Shoe Cleaning</option>
+                  <option>Soft Toys</option>
                 </select>
               </Field>
               <Field label="GARMENTS (APPROX.)" htmlFor="bp-count">

@@ -43,6 +43,7 @@ type Order = {
   service: string;
   pickup_date: string;
   status?: string;
+  outlet?: string;
 };
 
 type Rate = {
@@ -52,13 +53,15 @@ type Rate = {
   same_day_price: number;
 };
 
-// Status pipeline: confirmed → ready → delivered
-const STATUS_FLOW = ["confirmed", "ready", "delivered"];
+// Status pipeline: collected → in_transit → processing → ready → delivered
+const STATUS_FLOW = ["collected", "in_transit", "processing", "ready", "delivered"];
 
 const STATUS_META: Record<string, { color: string; bg: string; icon: string }> = {
-  confirmed: { color: "#2563eb", bg: "#dbeafe", icon: "📥" },
-  ready:     { color: "#d97706", bg: "#fef3c7", icon: "✅" },
-  delivered: { color: "#059669", bg: "#d1fae5", icon: "📦" },
+  collected:  { color: "#2563eb", bg: "#dbeafe", icon: "📥" },
+  in_transit: { color: "#7c3aed", bg: "#ede9fe", icon: "🚚" },
+  processing: { color: "#d97706", bg: "#fef3c7", icon: "🌀" },
+  ready:      { color: "#0891b2", bg: "#cffafe", icon: "✅" },
+  delivered:  { color: "#059669", bg: "#d1fae5", icon: "📦" },
 };
 
 // All UI text in 3 languages
@@ -156,11 +159,15 @@ function Orders({ t }: { t: Translation }) {
   const [err, setErr] = useState<boolean>(false);
   const [busy, setBusy] = useState<number | null>(null);
 
+  const OUTLET = new URLSearchParams(window.location.search).get("outlet");
+  const isCPU = OUTLET === null || OUTLET === "Thane"; // full 5-stage control
+  const OUTLET_ALLOWED: Record<string, string> = { collected: "in_transit", ready: "delivered" };
+
   const load = async () => {
     setErr(false);
     setOrders(null);
     try {
-      const data = await callApi({ action: "orders_read" });
+      const data = await callApi({ action: "orders_read", ...(OUTLET ? { outlet: OUTLET } : {}) });
       setOrders(Array.isArray(data) ? data : []);
     } catch {
       setErr(true);
@@ -170,9 +177,15 @@ function Orders({ t }: { t: Translation }) {
   useEffect(() => { load(); }, []);
 
   const cycleStatus = async (order: Order) => {
-    const cur = (order.status || "confirmed").toLowerCase();
+    const cur = (order.status || "collected").toLowerCase();
     const idx = STATUS_FLOW.indexOf(cur);
-    const next = STATUS_FLOW[(idx + 1) % STATUS_FLOW.length];
+    let next: string;
+    if (isCPU) {
+      next = STATUS_FLOW[(idx + 1) % STATUS_FLOW.length];
+    } else {
+      next = OUTLET_ALLOWED[cur];
+      if (next === undefined) return;
+    }
     setBusy(order.row_number);
     setOrders((prev) =>
       prev
@@ -201,24 +214,33 @@ function Orders({ t }: { t: Translation }) {
   return (
     <div style={S.cardGrid}>
       {orders.map((o) => {
-        const st = (o.status || "confirmed").toLowerCase();
-        const meta = STATUS_META[st] || STATUS_META.confirmed;
+        const st = (o.status || "collected").toLowerCase();
+        const meta = STATUS_META[st] || STATUS_META.collected;
+        const canAdvance = isCPU || !!OUTLET_ALLOWED[st];
         return (
           <div key={o.row_number} style={S.orderCard}>
             <div style={S.orderName}>{o.customer_name}</div>
+            {isCPU && o.outlet && <div style={S.orderLine}><span style={S.muted}>Outlet</span> {o.outlet}</div>}
             <div style={S.orderLine}><span style={S.muted}>{t.phone}</span> {o.phone}</div>
             <div style={S.orderLine}><span style={S.muted}>{t.item}</span> {o.item} · {o.service}</div>
             <div style={S.orderLine}><span style={S.muted}>{t.pickup}</span> {o.pickup_date}</div>
-            <button
-              onClick={() => cycleStatus(o)}
-              disabled={busy === o.row_number}
-              style={{ ...S.statusBtn, background: meta.bg, color: meta.color }}
-            >
-              <span style={S.statusIcon}>{meta.icon}</span>
-              {t[st] || st}
-              {busy === o.row_number && <span style={S.spin}> …</span>}
-            </button>
-            <div style={S.tapHint}>{t.tapStatus}</div>
+            {canAdvance ? (
+              <button
+                onClick={() => cycleStatus(o)}
+                disabled={busy === o.row_number}
+                style={{ ...S.statusBtn, background: meta.bg, color: meta.color }}
+              >
+                <span style={S.statusIcon}>{meta.icon}</span>
+                {t[st] || st}
+                {busy === o.row_number && <span style={S.spin}> …</span>}
+              </button>
+            ) : (
+              <div style={{ ...S.statusBtn, background: meta.bg, color: meta.color }}>
+                <span style={S.statusIcon}>{meta.icon}</span>
+                {t[st] || st}
+              </div>
+            )}
+            {canAdvance && <div style={S.tapHint}>{t.tapStatus}</div>}
           </div>
         );
       })}

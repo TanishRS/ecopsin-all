@@ -33,6 +33,18 @@ const CATEGORIES: ReadonlyArray<Cat> = [
     ['Bedsheet (single)',      '₹50'],
     ['Bedsheet (double)',      '₹70'],
   ]],
+  ['Shoe Cleaning', [
+    ['Sneakers / Canvas',      '₹350'],
+    ['Leather Shoes',          '₹450'],
+    ['Suede / Nubuck',         '₹600'],
+    ['Heels',                  '₹350'],
+    ['Boots',                  '₹500'],
+  ]],
+  ['Soft Toys', [
+    ['Small (under 12")',      '₹200'],
+    ['Medium (12–24")',        '₹400'],
+    ['Large (24"+)',           '₹700'],
+  ]],
 ]
 
 export default function PriceList() {
@@ -47,10 +59,6 @@ export default function PriceList() {
           RATE CARD — SUBJECT TO GARMENT CONDITION
         </p>
       </div>
-      <p className="reveal mt-3 text-xs italic text-velvet-mid">
-        Rates managed live by Ecospin — updated anytime via your admin dashboard.
-      </p>
-
       <div className="mt-14 grid grid-cols-1 gap-px border border-line bg-line lg:grid-cols-3" data-stagger>
         {CATEGORIES.map(([cat, items], ci) => (
           <div key={cat} className="reveal-item bg-whisper p-8">

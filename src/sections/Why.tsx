@@ -3,11 +3,9 @@ import { Squiggle } from '../components/Doodles'
 
 const REASONS = [
   ['01', 'DLI-USA member', "Continuous training & technology from the world's leading dry-cleaning institute."],
-  ['02', 'European equipment', 'German solvents, American washers — calibrated weekly.'],
-  ['03', 'Treated water', 'Specially conditioned, so the chemistry hits exactly right.'],
-  ['04', 'Eco-friendly', 'Biodegradable detergents, softeners and brighteners. No harsh shortcuts.'],
-  ['05', 'Trained experts', 'Five-star hotel laundry hands — trained in India and abroad.'],
-  ['06', 'Free pickup', 'Across Thane, Navi Mumbai and Mumbai. We come to you.'],
+  ['02', 'Treated water', 'Specially conditioned, so the chemistry hits exactly right.'],
+  ['03', 'Eco-friendly', 'Biodegradable detergents, softeners and brighteners. No harsh shortcuts.'],
+  ['04', 'Free pickup', 'Across Thane, Navi Mumbai and Mumbai. We come to you.'],
 ] as const
 
 export default function Why() {
@@ -17,7 +15,7 @@ export default function Why() {
       <div className="mt-10 grid grid-cols-1 gap-14 border-t border-line pt-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
         <div className="reveal">
           <h2 className="font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,4.5vw,4.25rem)]">
-            Six reasons owners{' '}
+            Four reasons owners{' '}
             <span className="underline-scribble serif-it text-glow">trust</span> us with their wardrobe.
           </h2>
           <Squiggle className="mt-6 h-3 w-32 text-velvet-mid opacity-70" />

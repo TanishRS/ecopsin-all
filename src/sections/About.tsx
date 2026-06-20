@@ -9,7 +9,7 @@ export default function About() {
       <Eyebrow>About · 01</Eyebrow>
       <div className="mt-10 grid grid-cols-1 gap-12 border-t border-line pt-12 lg:grid-cols-2 lg:gap-20">
         <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,5.5vw,5rem)]">
-          We <span className="serif-it text-glow">redefined</span> laundry
+          dry-cleaner
           <SquareDot />
           <span className="sr-only">.</span>
         </h2>

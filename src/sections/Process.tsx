@@ -39,7 +39,7 @@ const STEPS: Step[] = [
   { n: 3,  label: 'System Entry' },
   { n: 4,  label: 'Tagging' },
   { n: 5,  label: 'Classification' },
-  { n: 6,  label: 'Stain Removal & Prewash' },
+  { n: 6,  label: 'Pre-Wash' },
   { n: 7,  label: 'Automatic Machine Cleaning' },
   { n: 8,  label: 'Second QC Check' },
   { n: 9,  label: 'Finishing & Steam Pressing' },

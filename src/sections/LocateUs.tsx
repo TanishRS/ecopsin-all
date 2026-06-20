@@ -5,26 +5,30 @@ import { Eyebrow, Section } from '../components/ui'
 const WHATSAPP_NUMBER = '918657422155'
 const WEBHOOK_URL = 'https://n8n-service-wvij.onrender.com/webhook/ecospin-order'
 
-const STORES = [
+type Store = {
+  n: string
+  name: string
+  address?: string
+  phones?: string[]
+  comingSoon?: boolean
+}
+
+const STORES: Store[] = [
   {
     n: '01',
-    name: 'Thane (CPU)',
-    address:
-      'Unit No. 23, Kothari Compound 9 Acre, Manpada, Behind Happy Valley, Thane (W) 400610',
-    phones: ['+91 8452808888'],
+    name: 'Kharghar (CPU)',
+    address: 'Shop No.19, Green Heritage CHS, Plot No.79/80, Sector 20, Kharghar 410210',
+    phones: ['+91 86574 22155', '+91 86574 22355'],
   },
   {
     n: '02',
     name: 'Thane Store',
-    address:
-      'Shastri Nagar Naka, Pokran Road No.1, Beside Sanskriti Family Restaurant & Bar, Thane (W) 400606',
     phones: ['+91 9004337979', '+91 9004588555'],
   },
   {
     n: '03',
-    name: 'Kharghar Store',
-    address: 'Shop No.19, Green Heritage CHS, Plot No.79/80, Sector 20, Kharghar 410210',
-    phones: ['+91 86574 22155', '+91 86574 22355'],
+    name: 'Ulwe Store',
+    comingSoon: true,
   },
 ]
 
@@ -79,25 +83,42 @@ export default function LocateUs() {
       <div className="mt-14 grid grid-cols-1 gap-px border border-line bg-line lg:grid-cols-3" data-stagger>
         {STORES.map((s) => (
           <article key={s.n} className="reveal-item group bg-whisper p-8 transition-colors duration-300 ease-out hover:bg-petal md:p-10">
-            <p className="font-mono text-xs tracking-label text-glow">STORE / {s.n}</p>
+            <div className="flex items-center justify-between">
+              <p className="font-mono text-xs tracking-label text-glow">STORE / {s.n}</p>
+              {s.comingSoon && (
+                <span className="font-mono text-[10px] uppercase tracking-label text-plum/60 border border-line px-2 py-1">
+                  Coming soon
+                </span>
+              )}
+            </div>
             <h3 className="mt-4 font-display text-2xl uppercase text-plum">{s.name}</h3>
-            <p className="mt-5 flex items-start gap-3 text-sm leading-relaxed text-muted">
-              <MapPin size={16} strokeWidth={1.75} aria-hidden="true" className="mt-0.5 shrink-0 text-plum" />
-              {s.address}
-            </p>
-            <p className="mt-4 flex items-start gap-3 text-sm text-muted">
-              <Phone size={16} strokeWidth={1.75} aria-hidden="true" className="mt-0.5 shrink-0 text-plum" />
-              <span>
-                {s.phones.map((p, i) => (
-                  <span key={p}>
-                    {i > 0 && <span className="mx-1.5 text-line">·</span>}
-                    <a href={`tel:${p.replace(/\s/g, '')}`} className="hover:text-glow">
-                      {p}
-                    </a>
-                  </span>
-                ))}
-              </span>
-            </p>
+            {s.comingSoon ? (
+              <p className="mt-5 text-sm leading-relaxed text-muted">
+                Opening soon — details to follow.
+              </p>
+            ) : (
+              <>
+                <p className="mt-5 flex items-start gap-3 text-sm leading-relaxed text-muted">
+                  <MapPin size={16} strokeWidth={1.75} aria-hidden="true" className="mt-0.5 shrink-0 text-plum" />
+                  {s.address ?? <span className="italic text-muted/70">Address coming soon</span>}
+                </p>
+                {s.phones && (
+                  <p className="mt-4 flex items-start gap-3 text-sm text-muted">
+                    <Phone size={16} strokeWidth={1.75} aria-hidden="true" className="mt-0.5 shrink-0 text-plum" />
+                    <span>
+                      {s.phones.map((p, i) => (
+                        <span key={p}>
+                          {i > 0 && <span className="mx-1.5 text-line">·</span>}
+                          <a href={`tel:${p.replace(/\s/g, '')}`} className="hover:text-glow">
+                            {p}
+                          </a>
+                        </span>
+                      ))}
+                    </span>
+                  </p>
+                )}
+              </>
+            )}
           </article>
         ))}
       </div>
