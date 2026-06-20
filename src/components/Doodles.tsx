@@ -107,3 +107,135 @@ export function HangerGlyph({ className = 'w-6 h-6' }: SVGProps) {
     </svg>
   )
 }
+
+/** Friendly front-loading washing machine with a spinning drum (rotate via parent). */
+export function WashingMachine({ className = 'w-16 h-16' }: SVGProps) {
+  return (
+    <svg viewBox="0 0 80 80" className={className} fill="none" aria-hidden="true">
+      <rect x="8" y="6" width="64" height="68" rx="6" stroke="currentColor" strokeWidth="2.6" />
+      <line x1="8" y1="22" x2="72" y2="22" stroke="currentColor" strokeWidth="2.2" />
+      <circle cx="18" cy="14" r="2" fill="currentColor" />
+      <circle cx="28" cy="14" r="2" fill="currentColor" />
+      <rect x="56" y="11" width="12" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.6" />
+      <circle cx="40" cy="48" r="18" stroke="currentColor" strokeWidth="2.6" />
+      <circle cx="40" cy="48" r="11" stroke="currentColor" strokeWidth="1.6" />
+      <circle cx="40" cy="48" r="2.4" fill="currentColor" />
+      <path d="M30 48 a10 10 0 0 1 20 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.5" />
+    </svg>
+  )
+}
+
+/** Cute teddy bear face — round head, two ears, tiny features. */
+export function TeddyBear({ className = 'w-14 h-14' }: SVGProps) {
+  return (
+    <svg viewBox="0 0 64 64" className={className} fill="none" aria-hidden="true">
+      <circle cx="16" cy="16" r="7" stroke="currentColor" strokeWidth="2.4" />
+      <circle cx="48" cy="16" r="7" stroke="currentColor" strokeWidth="2.4" />
+      <circle cx="16" cy="16" r="2.5" fill="currentColor" />
+      <circle cx="48" cy="16" r="2.5" fill="currentColor" />
+      <circle cx="32" cy="36" r="20" stroke="currentColor" strokeWidth="2.6" />
+      <circle cx="24" cy="32" r="2.4" fill="currentColor" />
+      <circle cx="40" cy="32" r="2.4" fill="currentColor" />
+      <ellipse cx="32" cy="40" rx="4" ry="3" fill="currentColor" />
+      <path d="M26 46 Q 32 50 38 46" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+/** Side view of a friendly pickup van with two wheels (animate wheels independently). */
+export function PickupVan({ className = 'w-24 h-14' }: SVGProps) {
+  return (
+    <svg viewBox="0 0 120 64" className={className} fill="none" aria-hidden="true">
+      <path d="M6 46 L 6 28 L 60 28 L 70 18 L 100 18 L 108 28 L 114 28 L 114 46 Z" stroke="currentColor" strokeWidth="2.6" strokeLinejoin="round" />
+      <line x1="60" y1="28" x2="60" y2="46" stroke="currentColor" strokeWidth="2.2" />
+      <rect x="74" y="22" width="22" height="6" stroke="currentColor" strokeWidth="1.6" />
+      <circle cx="28" cy="50" r="8" stroke="currentColor" strokeWidth="2.4" fill="white" />
+      <circle cx="92" cy="50" r="8" stroke="currentColor" strokeWidth="2.4" fill="white" />
+      <circle cx="28" cy="50" r="2" fill="currentColor" />
+      <circle cx="92" cy="50" r="2" fill="currentColor" />
+      <path d="M14 38 L 50 38" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" opacity="0.5" />
+    </svg>
+  )
+}
+
+/** Sneaker side profile — sole and laces. */
+export function Sneaker({ className = 'w-16 h-10' }: SVGProps) {
+  return (
+    <svg viewBox="0 0 80 50" className={className} fill="none" aria-hidden="true">
+      <path d="M6 36 C 12 22, 28 18, 38 22 L 50 18 C 60 20, 72 24, 74 32 L 74 38 C 74 42, 70 44, 66 44 L 12 44 C 8 44, 6 42, 6 38 Z" stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" />
+      <line x1="6" y1="40" x2="74" y2="40" stroke="currentColor" strokeWidth="1.4" opacity="0.6" />
+      <line x1="34" y1="22" x2="40" y2="30" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="42" y1="20" x2="48" y2="28" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="50" y1="20" x2="56" y2="28" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+/** Iron with a steam puff. */
+export function IronDoodle({ className = 'w-14 h-10' }: SVGProps) {
+  return (
+    <svg viewBox="0 0 70 50" className={className} fill="none" aria-hidden="true">
+      <path d="M8 36 L 60 36 L 56 22 C 54 18, 50 16, 44 16 L 22 16 C 14 16, 10 22, 8 30 Z" stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" />
+      <line x1="6" y1="40" x2="62" y2="40" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+      <path d="M20 12 C 22 8, 26 8, 28 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+      <path d="M30 8  C 32 4, 36 4, 38 8"  stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+    </svg>
+  )
+}
+
+/** Simple soap bubble — circle + highlight. */
+export function Bubble({ className = 'w-6 h-6' }: SVGProps) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} fill="none" aria-hidden="true">
+      <circle cx="16" cy="16" r="13" stroke="currentColor" strokeWidth="2" fill="currentColor" fillOpacity="0.18" />
+      <circle cx="11" cy="11" r="3" fill="currentColor" fillOpacity="0.7" />
+    </svg>
+  )
+}
+
+/** A simple 5-pointed star — hand-drawn feel. */
+export function StarDoodle({ className = 'w-6 h-6' }: SVGProps) {
+  return (
+    <svg viewBox="0 0 40 40" className={className} fill="none" aria-hidden="true">
+      <path
+        d="M20 4 L 24 16 L 36 16 L 26 24 L 30 36 L 20 28 L 10 36 L 14 24 L 4 16 L 16 16 Z"
+        stroke="currentColor"
+        strokeWidth="2.2"
+        strokeLinejoin="round"
+        fill="currentColor"
+        fillOpacity="0.18"
+      />
+    </svg>
+  )
+}
+
+/** Inward spiral — fun motion-ish accent. */
+export function Spiral({ className = 'w-10 h-10' }: SVGProps) {
+  return (
+    <svg viewBox="0 0 40 40" className={className} fill="none" aria-hidden="true">
+      <path
+        d="M20 20 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0 M20 20 m-6 0 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0 M20 20 m-12 0 a12 12 0 1 0 24 0"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        fill="none"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
+/** Tiny droplet. */
+export function Droplet({ className = 'w-5 h-5' }: SVGProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" aria-hidden="true">
+      <path
+        d="M12 3 C 9 9, 5 13, 5 16 a7 7 0 0 0 14 0 c 0 -3 -4 -7 -7 -13 Z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinejoin="round"
+        fill="currentColor"
+        fillOpacity="0.2"
+      />
+    </svg>
+  )
+}

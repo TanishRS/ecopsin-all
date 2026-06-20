@@ -1,5 +1,6 @@
 import { Eyebrow, Section } from '../components/ui'
 import { Squiggle } from '../components/Doodles'
+import FloatingDecor from '../components/FloatingDecor'
 
 const REASONS = [
   ['01', 'DLI-USA member', "Continuous training & technology from the world's leading dry-cleaning institute."],
@@ -11,6 +12,7 @@ const REASONS = [
 export default function Why() {
   return (
     <Section id="why">
+      <FloatingDecor variant="why" />
       <Eyebrow>Why Ecospin · 03</Eyebrow>
       <div className="mt-10 grid grid-cols-1 gap-14 border-t border-line pt-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
         <div className="reveal">

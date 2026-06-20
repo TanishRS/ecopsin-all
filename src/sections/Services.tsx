@@ -2,6 +2,7 @@ import { Droplets, Footprints, PawPrint, Shirt, Sparkles, Wind } from 'lucide-re
 import type { LucideIcon } from 'lucide-react'
 import { Eyebrow, Section } from '../components/ui'
 import { SparkleBurst } from '../components/Doodles'
+import FloatingDecor from '../components/FloatingDecor'
 import Steam from '../components/Steam'
 
 type Service = {
@@ -54,6 +55,7 @@ const SERVICES: Service[] = [
 export default function Services() {
   return (
     <Section id="services">
+      <FloatingDecor variant="services" />
       <Eyebrow>Services · 02</Eyebrow>
       <div className="mt-10 flex flex-col justify-between gap-6 border-t border-line pt-12 md:flex-row md:items-end">
         <div className="flex items-start gap-3">

@@ -1,9 +1,11 @@
 import { Eyebrow, Section, SquareDot } from '../components/ui'
 import { ArrowDoodle } from '../components/Doodles'
+import FloatingDecor from '../components/FloatingDecor'
 
 export default function About() {
   return (
     <Section id="about">
+      <FloatingDecor variant="about" />
       {/* PHOTO PLACEHOLDER: subtle background texture of the processing unit / team at work
           goes here (absolutely-positioned, low-opacity) once real photos are provided. */}
       <Eyebrow>About · 01</Eyebrow>

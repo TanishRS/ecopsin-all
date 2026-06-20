@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import { HangerRack } from '../components/Placeholders'
 import { SquareDot } from '../components/ui'
 import { ArrowDoodle, SparkleBurst } from '../components/Doodles'
+import FloatingDecor from '../components/FloatingDecor'
 import Steam from '../components/Steam'
 import { prefersReducedMotion, scrollToHash } from '../lib/scroll'
 
@@ -39,9 +40,10 @@ export default function Hero() {
 
   return (
     <section id="home" ref={root} className="relative z-10">
+      <FloatingDecor variant="hero" />
       {/* PHOTO PLACEHOLDER: subtle full-bleed background texture of the shop interior
           goes here (absolutely-positioned, low-opacity) once real photos are provided. */}
-      <div className="mx-auto grid max-w-page grid-cols-1 gap-12 px-6 pb-10 pt-24 md:px-10 md:pb-14 lg:grid-cols-[auto_1fr_minmax(320px,420px)] lg:gap-16 lg:pt-32 xl:px-16">
+      <div className="relative z-10 mx-auto grid max-w-page grid-cols-1 gap-12 px-6 pb-10 pt-24 md:px-10 md:pb-14 lg:grid-cols-[auto_1fr_minmax(320px,420px)] lg:gap-16 lg:pt-32 xl:px-16">
         {/* vertical rail */}
         <div className="hidden lg:block">
           <p

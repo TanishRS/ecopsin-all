@@ -15,6 +15,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { Eyebrow, Section } from '../components/ui'
+import FloatingDecor from '../components/FloatingDecor'
 
 type Step = { n: number; label: string }
 
@@ -115,6 +116,7 @@ const ARROW_STROKE = 1.75
 export default function Process() {
   return (
     <Section id="process">
+      <FloatingDecor variant="process" />
       <Eyebrow>The Process · 04 · 12 Steps</Eyebrow>
       <div className="mt-10 border-t border-line pt-12">
         <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(1.875rem,5vw,4.5rem)]">

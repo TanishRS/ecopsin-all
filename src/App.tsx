@@ -25,12 +25,18 @@ import { prefersReducedMotion, setLenis } from './lib/scroll'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Module-level guard so React StrictMode's double-mount in dev doesn't run
+// the handoff twice and leave the navbar logo stuck in its hidden initial state.
+let loaderHandoffRan = false
+
 /**
- * Splash loader: pops the logo in, spins it once, flies it to the nav-bar
- * logo's exact spot, then fades to reveal the real nav image underneath.
- * Body scroll is locked while the animation runs.
+ * Splash loader: pops the logo in, spins it once in place, fades the whole
+ * overlay out to reveal the site, then pops the real navbar logo into its
+ * resting position. Body scroll is locked while the animation runs.
  */
 function runLoaderHandoff() {
+  if (loaderHandoffRan) return
+  loaderHandoffRan = true
   const loader = document.getElementById('ecospin-loader')
   if (!loader) return
   const loaderImg = loader.querySelector<HTMLImageElement>('img')
@@ -45,13 +51,27 @@ function runLoaderHandoff() {
   body.style.overflow = 'hidden'
   loader.style.pointerEvents = 'none'
 
+  // Hide the navbar logo synchronously so it can't paint before the pop-in
+  if (navImg) gsap.set(navImg, { opacity: 0, scale: 0.4, transformOrigin: '50% 50%' })
+
   const cleanup = () => {
     loader.remove()
     html.style.overflow = prevHtmlOverflow
     body.style.overflow = prevBodyOverflow
   }
 
-  if (!loaderImg || !navImg) {
+  const popNav = (duration = 0.55) => {
+    if (!navImg) return
+    gsap.to(navImg, {
+      opacity: 1,
+      scale: 1,
+      duration,
+      ease: 'back.out(2.2)',
+    })
+  }
+
+  if (!loaderImg) {
+    popNav(0.3)
     cleanup()
     return
   }
@@ -63,47 +83,36 @@ function runLoaderHandoff() {
     if (started) return
     started = true
 
-    const loaderRect = loaderImg.getBoundingClientRect()
-    const navRect = navImg.getBoundingClientRect()
-
-    // Degenerate cases — just fade out so we don't divide by zero or fly nowhere useful
-    if (!loaderRect.height || !navRect.width || !navRect.height) {
-      gsap.to(loader, { autoAlpha: 0, duration: 0.4, onComplete: cleanup })
-      return
-    }
-
     if (reduced) {
-      gsap.to(loader, { autoAlpha: 0, duration: 0.35, onComplete: cleanup })
+      gsap.to(loader, {
+        autoAlpha: 0,
+        duration: 0.35,
+        onComplete: () => {
+          popNav(0.3)
+          cleanup()
+        },
+      })
       return
     }
 
-    // Match the nav logo's rendered height so ECOSPIN reads at the same scale on landing
-    const targetScale = navRect.height / loaderRect.height
-    const dx = navRect.left + navRect.width / 2 - (loaderRect.left + loaderRect.width / 2)
-    const dy = navRect.top + navRect.height / 2 - (loaderRect.top + loaderRect.height / 2)
-
-    const tl = gsap.timeline({ onComplete: cleanup })
-    tl
-      // 1) POP IN — scale 0.6 → 1.3, fade in, bouncy
-      .to(loaderImg, { scale: 1.3, opacity: 1, duration: 0.5, ease: 'back.out(2)' })
-      // 2) SPIN once + SETTLE — one full 360° rotation while scaling back to 1
-      .to(loaderImg, { rotation: 360, scale: 1, duration: 0.7, ease: 'power2.inOut' })
-      // 3) FLY TO NAVBAR — translate + shrink to nav-logo size; backdrop fades in parallel
-      .to(
-        loaderImg,
-        { x: dx, y: dy, scale: targetScale, duration: 0.6, ease: 'power3.inOut' },
-        '+=0.05',
-      )
-      .to(
-        loader,
-        { backgroundColor: 'rgba(245, 235, 250, 0)', duration: 0.5, ease: 'power2.out' },
-        '<',
-      )
-      // 4) HANDOFF — fade loader image to reveal the real nav logo underneath
-      .to(loaderImg, { opacity: 0, duration: 0.18, ease: 'power1.out' })
+    // Run loader-only animation in a timeline, then trigger nav pop + cleanup
+    // separately so neither depends on the other's completion callback.
+    const loaderTl = gsap.timeline({
+      onComplete: () => {
+        cleanup()
+        popNav()
+      },
+    })
+    loaderTl
+      // 1) POP IN — scale 0.6 → 1.2, fade in, bouncy
+      .to(loaderImg, { scale: 1.2, opacity: 1, duration: 0.5, ease: 'back.out(2)' })
+      // 2) SPIN once in place — full 360° rotation, no translation, settle to scale 1
+      .to(loaderImg, { rotation: 360, scale: 1, duration: 0.8, ease: 'power2.inOut' })
+      // 3) FADE OUT the entire loader overlay (logo + background) to reveal the site
+      .to(loader, { autoAlpha: 0, duration: 0.55, ease: 'power2.inOut' }, '+=0.1')
   }
 
-  // Wait for both images to be measurable before starting (so we land accurately)
+  // Wait for the loader image to be measurable before starting
   const ready = (img: HTMLImageElement) => img.complete && img.naturalWidth > 0
   const waitFor = (img: HTMLImageElement) =>
     ready(img)
@@ -113,8 +122,8 @@ function runLoaderHandoff() {
           img.addEventListener('error', () => res(), { once: true })
         })
 
-  Promise.all([waitFor(loaderImg), waitFor(navImg)]).then(begin)
-  // Safety: if either image stalls, kick off anyway after 1.5s
+  waitFor(loaderImg).then(begin)
+  // Safety: if the image stalls, kick off anyway after 1.5s
   setTimeout(begin, 1500)
 }
 
