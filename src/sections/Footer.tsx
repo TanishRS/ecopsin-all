@@ -7,7 +7,10 @@ const MENU = [
   ['Home', '#home'],
   ['About', '#about'],
   ['Services', '#services'],
+  ['Why Ecospin', '#why'],
   ['Price List', '#prices'],
+  ['Testimonials', '#testimonials'],
+  ['Book Pickup', '#pickup'],
 ] as const
 
 const SERVICES = [
@@ -115,7 +118,7 @@ export default function Footer() {
                 <a href="tel:+918657422355" className="hover:text-glow">+91 86574 22355</a>
               </li>
               <li>
-                <a href="mailto:info@ecospin.in" className="hover:text-glow">info@ecospin.in</a>
+                <a href="mailto:info@ecospin.co.in" className="hover:text-glow">info@ecospin.co.in</a>
               </li>
               <li>Unit 23 Kothari Compound, Manpada, Thane (W) 400610</li>
             </ul>

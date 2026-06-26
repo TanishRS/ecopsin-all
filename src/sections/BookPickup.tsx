@@ -93,7 +93,7 @@ export default function BookPickup() {
       get('garments') && `Garments (approx.): ${get('garments')}`,
       get('notes') && `Notes: ${get('notes')}`,
     ].filter(Boolean)
-    const message = ['New pickup request — ecospin.in', '', ...details].join('\n')
+    const message = ['New pickup request — ecospin.co.in', '', ...details].join('\n')
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
     window.open(url, '_blank', 'noopener')
@@ -123,10 +123,10 @@ export default function BookPickup() {
           </h2>
           <p className="reveal mt-8 max-w-md text-[15px] leading-relaxed text-muted">
             Free pickup and delivery across Thane, Navi Mumbai and Mumbai.{' '}
-            <span className="serif-it text-plum">We reply on WhatsApp in &lt;15 min.</span>
+            <span className="semibold text-plum">We reply on WhatsApp in &lt;15 min.</span>
           </p>
           <div className="reveal mt-4">
-            <span className="hand text-2xl text-glow">first wash on us, often →</span>
+            <span className="serif-it text-2xl text-plum">save on your first wash →</span>
           </div>
           <div className="reveal mt-10 space-y-3 font-mono text-sm">
             <p>
@@ -137,8 +137,8 @@ export default function BookPickup() {
             </p>
             <p>
               <span className="mono-label mr-4">EMAIL</span>
-              <a href="mailto:info@ecospin.in" className="text-plum hover:text-glow">
-                info@ecospin.in
+              <a href="mailto:info@ecospin.co.in" className="text-plum hover:text-glow">
+                info@ecospin.co.in
               </a>
             </p>
           </div>

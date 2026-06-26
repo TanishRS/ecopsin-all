@@ -105,11 +105,11 @@ function runLoaderHandoff() {
     })
     loaderTl
       // 1) POP IN — scale 0.6 → 1.2, fade in, bouncy
-      .to(loaderImg, { scale: 1.2, opacity: 1, duration: 0.5, ease: 'back.out(2)' })
+      .to(loaderImg, { scale: 1.2, opacity: 1, duration: 0.35, ease: 'back.out(2)' })
       // 2) SPIN once in place — full 360° rotation, no translation, settle to scale 1
-      .to(loaderImg, { rotation: 360, scale: 1, duration: 0.8, ease: 'power2.inOut' })
+      .to(loaderImg, { rotation: 360, scale: 1, duration: 0.55, ease: 'power2.inOut' })
       // 3) FADE OUT the entire loader overlay (logo + background) to reveal the site
-      .to(loader, { autoAlpha: 0, duration: 0.55, ease: 'power2.inOut' }, '+=0.1')
+      .to(loader, { autoAlpha: 0, duration: 0.4, ease: 'power2.inOut' }, '+=0.05')
   }
 
   // Wait for the loader image to be measurable before starting
@@ -123,8 +123,8 @@ function runLoaderHandoff() {
         })
 
   waitFor(loaderImg).then(begin)
-  // Safety: if the image stalls, kick off anyway after 1.5s
-  setTimeout(begin, 1500)
+  // Safety: if the image stalls, kick off anyway after 1s
+  setTimeout(begin, 1000)
 }
 
 export default function App() {

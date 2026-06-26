@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { prefersReducedMotion } from '../lib/scroll'
 
-const WORDS = ['WET·CLEAN', 'STEAM·IRON', 'STAIN·REM', 'DRY·CLEAN']
+const WORDS = ['WET·CLEAN', 'STEAM·IRON', 'STAIN·REMOVAL', 'DRY·CLEAN']
 
 function Row() {
   return (

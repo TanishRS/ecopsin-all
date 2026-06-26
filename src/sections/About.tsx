@@ -17,9 +17,12 @@ export default function About() {
         </h2>
         <div className="reveal max-w-xl text-[15px] leading-relaxed text-muted lg:justify-self-end lg:pt-2">
           <p>
-            One processing unit in Thane-West. A team trained in five-star hotel laundries — in
-            India and abroad. Every garment{' '}
+            Since 2008. One processing unit in Thane-West, a team trained in five-star hotel
+            laundries — in India and abroad. Every garment{' '}
             <span className="serif-it text-plum">tracked</span> from pickup to delivery.
+          </p>
+          <p className="mt-4">
+            We don&apos;t do volume for the sake of it. We do it right — one garment at a time.
           </p>
           <div className="mt-6 flex items-end gap-2 text-plum/80">
             <span className="hand text-2xl text-glow">drop it off →</span>

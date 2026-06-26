@@ -24,6 +24,7 @@ const STORES: Store[] = [
   {
     n: '02',
     name: 'Thane Store',
+    address: 'Shastri Nagar Naka, Pokran Road No.1, Beside Sanskriti Family Restaurant & Bar, Thane West 400606',
     phones: ['+91 9004337979', '+91 9004588555'],
   },
   {
@@ -65,7 +66,7 @@ export default function LocateUs() {
       `Phone: ${get('phone')}`,
       `Email: ${get('email')}`,
     ].filter(Boolean)
-    const message = ['New inquiry — ecospin.in', '', ...details].join('\n')
+    const message = ['New inquiry — ecospin.co.in', '', ...details].join('\n')
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
     window.open(url, '_blank', 'noopener')
@@ -79,6 +80,9 @@ export default function LocateUs() {
       <h2 className="reveal mt-10 border-t border-line pt-12 font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,5vw,4.5rem)]">
         Three doors. <span className="text-glow">One promise.</span>
       </h2>
+      <p className="reveal mt-4 max-w-lg text-[15px] leading-relaxed text-muted">
+        Same quality guarantee at every location — pick the one closest to you.
+      </p>
 
       {/* PHOTO PLACEHOLDER: each store card below gets a storefront photo strip at the top
           once real photos are provided. */}
@@ -127,9 +131,14 @@ export default function LocateUs() {
 
       {/* mini contact block */}
       <div id="contact" className="mt-24 grid grid-cols-1 gap-12 border-t border-line pt-12 lg:grid-cols-2">
-        <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(1.875rem,4vw,3.75rem)]">
-          Get in touch<span className="text-glow">.</span>
-        </h2>
+        <div className="reveal">
+          <h2 className="font-display uppercase leading-[0.95] text-plum [font-size:clamp(1.875rem,4vw,3.75rem)]">
+            Get in<span className="text-glow"> TOUCH</span>
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-muted">
+            Questions, special requests, or just want to say hello, drop your details and we&apos;ll get back to you on WhatsApp.
+          </p>
+        </div>
         <form
           className="reveal grid grid-cols-1 gap-6 sm:grid-cols-3"
           onSubmit={onContactSubmit}

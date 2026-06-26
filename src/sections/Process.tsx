@@ -5,10 +5,8 @@ import {
   ArrowRight,
   ClipboardCheck,
   Droplets,
-  Laptop,
   LayoutGrid,
   Package,
-  Tag,
   Truck,
   WashingMachine,
   Wind,
@@ -22,31 +20,27 @@ type Step = { n: number; label: string }
 const ICONS: Record<number, LucideIcon> = {
   1: Truck,
   2: ClipboardCheck,
-  3: Laptop,
-  4: Tag,
-  5: LayoutGrid,
-  6: Droplets,
-  7: WashingMachine,
+  3: LayoutGrid,
+  4: Droplets,
+  5: WashingMachine,
+  6: ClipboardCheck,
+  7: Wind,
   8: ClipboardCheck,
-  9: Wind,
-  10: ClipboardCheck,
-  11: Package,
-  12: Truck,
+  9: Package,
+  10: Truck,
 }
 
 const STEPS: Step[] = [
-  { n: 1,  label: 'View · Pickup / Receive' },
-  { n: 2,  label: 'First QC Check' },
-  { n: 3,  label: 'System Entry' },
-  { n: 4,  label: 'Tagging' },
-  { n: 5,  label: 'Classification' },
-  { n: 6,  label: 'Pre-Wash' },
-  { n: 7,  label: 'Automatic Machine Cleaning' },
-  { n: 8,  label: 'Second QC Check' },
-  { n: 9,  label: 'Finishing & Steam Pressing' },
-  { n: 10, label: 'Final QC Check' },
-  { n: 11, label: 'Packaging' },
-  { n: 12, label: 'Delivery / Collect' },
+  { n: 1,  label: 'Pickup / Receive' },
+  { n: 2,  label: 'Inspection & Tagging' },
+  { n: 3,  label: 'Classification' },
+  { n: 4,  label: 'Pre-Wash Treatment' },
+  { n: 5,  label: 'Machine Cleaning' },
+  { n: 6,  label: 'Quality Check' },
+  { n: 7,  label: 'Finishing & Steam Press' },
+  { n: 8,  label: 'Final Inspection' },
+  { n: 9,  label: 'Packaging' },
+  { n: 10, label: 'Delivery / Collect' },
 ]
 
 const TRUST = [
@@ -57,18 +51,18 @@ const TRUST = [
   'Delivery on Time',
 ]
 
-// Boustrophedon path: row 1 LTR, row 2 RTL, row 3 LTR. Cards stay in
-// numeric order (5,6,7,8 in row 2 read left→right), but the arrows between
-// them point LEFT so the flow direction is 8→7→6→5.
+// Boustrophedon path: row 1 LTR, row 2 RTL, row 3 LTR. Row 2 cards are
+// reversed (7,6,5 left→right) so the left-pointing arrows between them
+// match the flow direction 5→6→7.
 type RowSpec = { steps: Step[]; arrow: 'right' | 'left'; downAfter: 'right' | 'left' | null }
 const DESKTOP_ROWS: RowSpec[] = [
   { steps: STEPS.slice(0, 4), arrow: 'right', downAfter: 'right' },
-  { steps: STEPS.slice(4, 8), arrow: 'left', downAfter: 'left' },
-  { steps: STEPS.slice(8, 12), arrow: 'right', downAfter: null },
+  { steps: [...STEPS.slice(4, 8)].reverse(), arrow: 'left', downAfter: 'left' },
+  { steps: STEPS.slice(8, 10), arrow: 'right', downAfter: null },
 ]
 
 function Card({ step, badge }: { step: Step; badge?: string }) {
-  const isQC = step.label.includes('QC')
+  const isQC = step.label.includes('QC') || step.label.includes('Quality') || step.label.includes('Inspection')
   const Icon = ICONS[step.n]
   // mobile: compact horizontal pill (icon · number · label); lg+: tall station card
   return (
@@ -117,14 +111,14 @@ export default function Process() {
   return (
     <Section id="process">
       <FloatingDecor variant="process" />
-      <Eyebrow>The Process · 04 · 12 Steps</Eyebrow>
+      <Eyebrow>The Process · 04 · 10 Steps</Eyebrow>
       <div className="mt-10 border-t border-line pt-12">
         <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(1.875rem,5vw,4.5rem)]">
-          Twelve stations.
+          Ten stations.
           <br />
-          <span className="serif-it text-glow">cleaner</span> than new.
+          <span className="serif-it text-glow">fresh</span> as new.
         </h2>
-        <p className="reveal mono-label mt-4">1ST DAY → DAY 3</p>
+        <p className="reveal mono-label mt-4">1ST DAY → DAY 3 · SAME-DAY AVAILABLE</p>
       </div>
 
       {/* ── Desktop: boustrophedon path — row 1 LTR, row 2 RTL, row 3 LTR ── */}
@@ -137,7 +131,7 @@ export default function Process() {
                   <Fragment key={step.n}>
                     <Card
                       step={step}
-                      badge={step.n === 1 ? '1st Day' : step.n === 12 ? 'Day 3' : undefined}
+                      badge={step.n === 1 ? '1st Day' : step.n === 10 ? 'Day 3' : undefined}
                     />
                     {si < row.steps.length - 1 && (
                       <div className="px-2">
@@ -189,7 +183,7 @@ export default function Process() {
           <div key={step.n} className="flex flex-col items-center">
             <Card
               step={step}
-              badge={step.n === 1 ? '1st Day' : step.n === 12 ? 'Day 3' : undefined}
+              badge={step.n === 1 ? '1st Day' : step.n === 10 ? 'Day 3' : undefined}
             />
             {i < STEPS.length - 1 && (
               <div className="py-1.5">

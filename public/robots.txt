@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ecospin.in/sitemap.xml
+Sitemap: https://ecospin.co.in/sitemap.xml

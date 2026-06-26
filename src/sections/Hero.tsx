@@ -17,17 +17,17 @@ export default function Hero() {
       gsap.fromTo(
         '.hero-line',
         { yPercent: 110 },
-        { yPercent: 0, duration: 1.1, ease: 'power4.out', stagger: 0.14, delay: 0.15 },
+        { yPercent: 0, duration: 1.1, ease: 'power4.out', stagger: 0.14, delay: 1.4 },
       )
       gsap.fromTo(
         '.hero-fade',
         { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', stagger: 0.1, delay: 0.65 },
+        { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', stagger: 0.1, delay: 1.9 },
       )
       gsap.fromTo(
         '.hero-img',
         { scale: 1.06, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1.3, ease: 'power3.out', delay: 0.35 },
+        { scale: 1, opacity: 1, duration: 1.3, ease: 'power3.out', delay: 1.5 },
       )
     }, root)
     return () => ctx.revert()
@@ -76,8 +76,8 @@ export default function Hero() {
           </h1>
 
           <p className="hero-fade mt-10 max-w-md text-[15px] leading-relaxed text-muted">
-            DLI-USA certified. German solvents. American machines.{' '}
-            <span className="serif-it text-plum">No tumble shortcuts.</span> Hand-finished, hanger-pressed,
+            DLI-USA certified. German solvents. American machines.<br/>
+            <span className="serif-it text-plum">Hand-finished, hanger-pressed</span> —
             tracked from pickup to door.
           </p>
 

@@ -25,12 +25,12 @@ const GENTLEMEN: DualCat = {
   kind: 'dual',
   items: [
     ['Shirt / T-shirt',            '140', '45'],
-    ['Payjama / Trouser / Shorts', '170', '60'],
+    ['Pajama / Trouser / Shorts', '170', '60'],
     ['Kurta',                      '190', '60'],
     ['Jeans / Track Pant / Capri', '190', '60'],
     ['Coat / Blazer',              '390', '160'],
     ['Jacket',                     '390', '160'],
-    ['Leather Jacket',             '—',   '—'],
+    ['Leather Jacket',             'By quote',   'By quote'],
     ['Rider Jacket',               '110', '300'],
     ['Tie',                        '100', '45'],
     ['Overcoat',                   '560', '200'],
@@ -126,10 +126,10 @@ export default function PriceList() {
       <Eyebrow>Price list · 05</Eyebrow>
       <div className="mt-10 flex flex-col justify-between gap-6 border-t border-line pt-12 md:flex-row md:items-end">
         <h2 className="reveal font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,5vw,4.5rem)]">
-          The rate card.
+          Transparent pricing.
         </h2>
         <p className="reveal mono-label md:pb-2 md:text-right">
-          RATE CARD — SUBJECT TO GARMENT CONDITION
+          ALL PRICES — SUBJECT TO GARMENT CONDITION
         </p>
       </div>
       <div

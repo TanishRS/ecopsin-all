@@ -3,7 +3,7 @@ import { Squiggle } from '../components/Doodles'
 import FloatingDecor from '../components/FloatingDecor'
 
 const REASONS = [
-  ['01', 'DLI-USA member', "Continuous training & technology from the world's leading dry-cleaning institute."],
+  ['01', 'DLI-USA member', 'Certified by the Dry Cleaning & Laundry Institute — the global standard for garment care training and technology.'],
   ['02', 'Treated water', 'Specially conditioned, so the chemistry hits exactly right.'],
   ['03', 'Eco-friendly', 'Biodegradable detergents, softeners and brighteners. No harsh shortcuts.'],
   ['04', 'Free pickup', 'Across Thane, Navi Mumbai and Mumbai. We come to you.'],
@@ -14,11 +14,11 @@ export default function Why() {
     <Section id="why">
       <FloatingDecor variant="why" />
       <Eyebrow>Why Ecospin · 03</Eyebrow>
-      <div className="mt-10 grid grid-cols-1 gap-14 border-t border-line pt-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
-        <div className="reveal">
+      <div className="mt-10 grid grid-cols-1 gap-14 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
+        <div className="reveal border-t border-line pt-12">
           <h2 className="font-display uppercase leading-[0.95] text-plum [font-size:clamp(2rem,4.5vw,4.25rem)]">
-            Four reasons owners{' '}
-            <span className="underline-scribble serif-it text-glow">trust</span> us with their wardrobe.
+            4 reasons owners{' '}
+            <span className="underline-scribble">trust</span> us with their wardrobe.
           </h2>
           <Squiggle className="mt-6 h-3 w-32 text-velvet-mid opacity-70" />
         </div>

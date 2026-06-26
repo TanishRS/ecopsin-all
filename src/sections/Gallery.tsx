@@ -13,7 +13,7 @@ const TILES = [
 export default function Gallery() {
   return (
     <Section id="gallery">
-      <Eyebrow>Gallery · Field notes</Eyebrow>
+      <Eyebrow>Gallery · Our Work</Eyebrow>
       <div
         className="mt-10 grid auto-rows-[180px] grid-cols-2 gap-px border border-line bg-line md:auto-rows-[220px] md:grid-cols-4"
         data-stagger

@@ -5,8 +5,8 @@ import { prefersReducedMotion } from '../lib/scroll'
 
 const STATS = [
   { value: 15, suffix: '+', label: 'YEARS OF CRAFT' },
-  { value: 50, suffix: 'K+', label: 'GARMENTS CARED' },
-  { value: 10, suffix: '', label: 'STEP CPU FLOW' },
+  { value: 50, suffix: 'K+', label: 'GARMENTS CARED FOR' },
+  { value: 10, suffix: '', label: 'STEP QUALITY FLOW' },
   { value: 3, suffix: '', label: 'CITIES SERVED' },
 ]
 
